@@ -1,6 +1,12 @@
+import type { Tip } from "../data/checklistData";
 import "./TipPanel.css";
 
-export default function TipPanel({ tip, onClose }) {
+interface TipPanelProps {
+  tip: Tip | null;
+  onClose: () => void;
+}
+
+export default function TipPanel({ tip, onClose }: TipPanelProps) {
   if (!tip) return null;
 
   return (

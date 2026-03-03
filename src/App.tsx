@@ -8,15 +8,15 @@ import { totalItems } from "./data/checklistData";
 
 const STORAGE_KEY = "dsc-checked";
 
-function loadChecked() {
+function loadChecked(): Set<string> {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return new Set(JSON.parse(raw));
+    if (raw) return new Set<string>(JSON.parse(raw) as string[]);
   } catch {}
-  return new Set();
+  return new Set<string>();
 }
 
-function saveChecked(set) {
+function saveChecked(set: Set<string>): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
   } catch {}
@@ -25,7 +25,7 @@ function saveChecked(set) {
 function AppContent() {
   const [checkedIds, setCheckedIds] = useState(loadChecked);
 
-  const handleToggle = useCallback((id) => {
+  const handleToggle = useCallback((id: string) => {
     setCheckedIds((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
@@ -36,7 +36,7 @@ function AppContent() {
   }, []);
 
   const handleReset = useCallback(() => {
-    const empty = new Set();
+    const empty = new Set<string>();
     saveChecked(empty);
     setCheckedIds(empty);
   }, []);

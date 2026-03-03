@@ -1,4 +1,36 @@
-export const categories = [
+// ─── Domain types ────────────────────────────────────────────────────────────
+
+export type Severity = "critical" | "high" | "medium" | "low";
+
+export interface Tip {
+  title: string;
+  body: string;
+  action?: string;
+}
+
+export interface ChecklistItem {
+  id: string;
+  text: string;
+  severity: Severity;
+  tip: Tip;
+}
+
+export interface Category {
+  id: string;
+  title: string;
+  icon: string;
+  description: string;
+  items: ChecklistItem[];
+}
+
+export interface ScoreLabel {
+  label: string;
+  color: string;
+}
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
+export const categories: Category[] = [
   {
     id: "passwords",
     title: "Passwords & Authentication",
@@ -457,14 +489,14 @@ export const totalItems = categories.reduce(
   0
 );
 
-export const severityWeight = {
+export const severityWeight: Record<Severity, number> = {
   critical: 4,
   high: 3,
   medium: 2,
   low: 1,
 };
 
-export function calculateScore(checkedIds) {
+export function calculateScore(checkedIds: Set<string>): number {
   let earned = 0;
   let possible = 0;
   for (const cat of categories) {
@@ -477,7 +509,7 @@ export function calculateScore(checkedIds) {
   return possible === 0 ? 0 : Math.round((earned / possible) * 100);
 }
 
-export function getScoreLabel(score) {
+export function getScoreLabel(score: number): ScoreLabel {
   if (score >= 90) return { label: "Excellent", color: "#22c55e" };
   if (score >= 70) return { label: "Good", color: "#84cc16" };
   if (score >= 50) return { label: "Fair", color: "#f59e0b" };

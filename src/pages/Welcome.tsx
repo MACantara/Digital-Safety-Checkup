@@ -2,9 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { categories, totalItems } from "../data/checklistData";
 import "./Welcome.css";
 
-const categoryHighlights = categories.slice(0, 4);
+interface WelcomeProps {
+  onReset: () => void;
+}
 
-export default function Welcome({ onReset }) {
+export default function Welcome({ onReset }: WelcomeProps) {
   const navigate = useNavigate();
 
   const handleStart = () => {

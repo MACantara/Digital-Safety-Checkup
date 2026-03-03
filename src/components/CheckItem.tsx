@@ -1,13 +1,21 @@
+import type { ChecklistItem, Tip } from "../data/checklistData";
 import "./CheckItem.css";
 
-const severityConfig = {
+const severityConfig: Record<string, { label: string; color: string }> = {
   critical: { label: "Critical", color: "#ef4444" },
   high: { label: "High", color: "#f97316" },
   medium: { label: "Medium", color: "#f59e0b" },
   low: { label: "Low", color: "#84cc16" },
 };
 
-export default function CheckItem({ item, checked, onToggle, onTipClick }) {
+interface CheckItemProps {
+  item: ChecklistItem;
+  checked: boolean;
+  onToggle: (id: string) => void;
+  onTipClick: (tip: Tip) => void;
+}
+
+export default function CheckItem({ item, checked, onToggle, onTipClick }: CheckItemProps) {
   const sev = severityConfig[item.severity];
 
   return (

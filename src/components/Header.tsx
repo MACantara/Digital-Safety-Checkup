@@ -1,7 +1,12 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Header.css";
 
-export default function Header({ score, totalChecked, totalItems }) {
+interface HeaderProps {
+  totalChecked: number;
+  totalItems: number;
+}
+
+export default function Header({ totalChecked, totalItems }: HeaderProps) {
   const navigate = useNavigate();
   const location = useLocation();
 

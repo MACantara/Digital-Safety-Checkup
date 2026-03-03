@@ -1,7 +1,12 @@
 import { getScoreLabel } from "../data/checklistData";
 import "./ScoreGauge.css";
 
-export default function ScoreGauge({ score, large = false }) {
+interface ScoreGaugeProps {
+  score: number;
+  large?: boolean;
+}
+
+export default function ScoreGauge({ score, large = false }: ScoreGaugeProps) {
   const { label, color } = getScoreLabel(score);
 
   // SVG arc gauge

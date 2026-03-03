@@ -1,14 +1,24 @@
 import { useNavigate } from "react-router-dom";
+import type { ChecklistItem } from "../data/checklistData";
 import {
   categories,
   calculateScore,
-  getScoreLabel,
   severityWeight,
 } from "../data/checklistData";
 import ScoreGauge from "../components/ScoreGauge";
 import "./Results.css";
 
-function getMissedItems(checkedIds) {
+interface ResultsProps {
+  checkedIds: Set<string>;
+  onReset: () => void;
+}
+
+interface MissedItem extends ChecklistItem {
+  categoryTitle: string;
+  categoryIcon: string;
+}
+
+function getMissedItems(checkedIds: Set<string>): MissedItem[] {
   const missed = [];
   for (const cat of categories) {
     for (const item of cat.items) {
@@ -30,17 +40,13 @@ const severityBadge = {
   low: { bg: "rgba(132,204,22,0.12)", color: "#a3e635", label: "Low" },
 };
 
-export default function Results({ checkedIds, onReset }) {
+export default function Results({ checkedIds, onReset }: ResultsProps) {
   const navigate = useNavigate();
   const score = calculateScore(checkedIds);
-  const { label, color } = getScoreLabel(score);
   const missed = getMissedItems(checkedIds);
 
   const totalCount = categories.reduce((s, c) => s + c.items.length, 0);
   const doneCount = checkedIds.size;
-
-  const criticalMissed = missed.filter((i) => i.severity === "critical");
-  const highMissed = missed.filter((i) => i.severity === "high");
 
   return (
     <main className="results-page">

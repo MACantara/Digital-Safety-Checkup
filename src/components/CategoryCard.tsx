@@ -1,8 +1,16 @@
 import { useState } from "react";
+import type { Category, Tip } from "../data/checklistData";
 import CheckItem from "./CheckItem";
 import "./CategoryCard.css";
 
-export default function CategoryCard({ category, checkedIds, onToggle, onTipClick }) {
+interface CategoryCardProps {
+  category: Category;
+  checkedIds: Set<string>;
+  onToggle: (id: string) => void;
+  onTipClick: (tip: Tip) => void;
+}
+
+export default function CategoryCard({ category, checkedIds, onToggle, onTipClick }: CategoryCardProps) {
   const [collapsed, setCollapsed] = useState(false);
 
   const total = category.items.length;

@@ -1,15 +1,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import type { Tip } from "../data/checklistData";
 import { categories, calculateScore, totalItems } from "../data/checklistData";
 import CheckItem from "../components/CheckItem";
 import ScoreGauge from "../components/ScoreGauge";
 import TipPanel from "../components/TipPanel";
 import "./Checklist.css";
 
-export default function Checklist({ checkedIds, onToggle }) {
+interface ChecklistProps {
+  checkedIds: Set<string>;
+  onToggle: (id: string) => void;
+}
+
+export default function Checklist({ checkedIds, onToggle }: ChecklistProps) {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
-  const [activeTip, setActiveTip] = useState(null);
+  const [activeTip, setActiveTip] = useState<Tip | null>(null);
 
   const score = calculateScore(checkedIds);
   const doneCount = checkedIds.size;

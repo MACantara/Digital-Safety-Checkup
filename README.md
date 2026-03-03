@@ -36,6 +36,7 @@ A free, privacy-first web app that guides users through a personal cybersecurity
 | Tool | Version | Purpose |
 |---|---|---|
 | [React](https://react.dev) | 19 | UI framework |
+| [TypeScript](https://www.typescriptlang.org) | 5 | Static typing |
 | [Vite](https://vite.dev) | 7 | Build tool & dev server |
 | [React Router](https://reactrouter.com) | 7 | Client-side routing |
 
@@ -48,20 +49,20 @@ No other runtime dependencies. All styling is plain CSS (no CSS framework).
 ```
 src/
 ├── data/
-│   └── checklistData.js       # All 37 items, categories, scoring logic
+│   └── checklistData.ts       # All 37 items, categories, scoring logic + shared types
 ├── components/
-│   ├── Header.jsx / .css      # Sticky top nav with progress counter
-│   ├── CategoryCard.jsx / .css # Collapsible category with progress bar
-│   ├── CheckItem.jsx / .css   # Individual checklist row with severity badge
-│   ├── TipPanel.jsx / .css    # Modal overlay with why/action for each item
-│   └── ScoreGauge.jsx / .css  # Animated SVG arc gauge
+│   ├── Header.tsx / .css      # Sticky top nav with progress counter
+│   ├── CategoryCard.tsx / .css # Collapsible category with progress bar
+│   ├── CheckItem.tsx / .css   # Individual checklist row with severity badge
+│   ├── TipPanel.tsx / .css    # Modal overlay with why/action for each item
+│   └── ScoreGauge.tsx / .css  # Animated SVG arc gauge
 ├── pages/
-│   ├── Welcome.jsx / .css     # Landing page with category overview
-│   ├── Checklist.jsx / .css   # Main checklist page with sidebar
-│   └── Results.jsx / .css     # Score, breakdown, and action plan
-├── App.jsx                    # Root component, routing, shared state
+│   ├── Welcome.tsx / .css     # Landing page with category overview
+│   ├── Checklist.tsx / .css   # Main checklist page with sidebar
+│   └── Results.tsx / .css     # Score, breakdown, and action plan
+├── App.tsx                    # Root component, routing, shared state
 ├── index.css                  # Global styles and button system
-└── main.jsx                   # App entry point
+└── main.tsx                   # App entry point
 ```
 
 ### Routes
@@ -96,7 +97,10 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 ### Other Commands
 
 ```bash
-# Type-check and lint
+# Type-check the entire project
+npm run typecheck
+
+# Lint (TypeScript-aware)
 npm run lint
 
 # Build for production (outputs to dist/)
