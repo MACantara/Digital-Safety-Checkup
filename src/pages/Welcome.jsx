@@ -14,7 +14,6 @@ export default function Welcome({ onReset }) {
   return (
     <main className="welcome">
       <div className="welcome__hero">
-        <div className="welcome__badge">Free · No account required · Fully private</div>
         <h1 className="welcome__title">
           How safe are you <span className="welcome__title-accent">online?</span>
         </h1>
