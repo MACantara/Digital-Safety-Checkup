@@ -28,7 +28,7 @@ export default function ScoreGauge({ score, large = false }: ScoreGaugeProps) {
         <path
           d={`M ${stroke} ${cy} A ${radius} ${radius} 0 0 1 ${size - stroke} ${cy}`}
           fill="none"
-          stroke="rgba(255,255,255,0.06)"
+          stroke="#e2e8f0"
           strokeWidth={stroke}
           strokeLinecap="round"
         />

@@ -76,25 +76,25 @@ function ContextSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
 
   const phaseColors = [
     {
-      accent: "text-rose-400",
-      border: "border-rose-500/25",
-      bg: "bg-rose-500/10",
-      badge: "bg-rose-500/15 text-rose-300 border border-rose-500/30",
-      rankBg: "bg-rose-500/10",
+      accent: "text-rose-700",
+      border: "border-rose-300",
+      bg: "bg-rose-50",
+      badge: "bg-rose-100 text-rose-700 border border-rose-300",
+      rankBg: "bg-rose-50",
     },
     {
-      accent: "text-sky-400",
-      border: "border-sky-500/25",
-      bg: "bg-sky-500/10",
-      badge: "bg-sky-500/15 text-sky-300 border border-sky-500/30",
-      rankBg: "bg-sky-500/10",
+      accent: "text-sky-700",
+      border: "border-sky-300",
+      bg: "bg-sky-50",
+      badge: "bg-sky-100 text-sky-700 border border-sky-300",
+      rankBg: "bg-sky-50",
     },
     {
-      accent: "text-emerald-400",
-      border: "border-emerald-500/25",
-      bg: "bg-emerald-500/10",
-      badge: "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30",
-      rankBg: "bg-emerald-500/10",
+      accent: "text-emerald-700",
+      border: "border-emerald-300",
+      bg: "bg-emerald-50",
+      badge: "bg-emerald-100 text-emerald-700 border border-emerald-300",
+      rankBg: "bg-emerald-50",
     },
   ];
   const color = phaseColors[phase.id - 1] ?? phaseColors[0];
@@ -108,11 +108,11 @@ function ContextSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
           <span className={`text-[0.8rem] font-extrabold uppercase tracking-[0.2em] ${color.accent}`}>
             Context
           </span>
-          <h2 className="text-[clamp(1.5rem,3.5vw,2.2rem)] font-extrabold text-slate-100 tracking-[-0.035em] leading-[1.1]">
+          <h2 className="text-[clamp(1.5rem,3.5vw,2.2rem)] font-extrabold text-slate-900 tracking-[-0.035em] leading-[1.1]">
             {ctx.slideTitle}
           </h2>
           {ctx.subtitle && (
-            <p className="text-slate-400 text-[0.9rem] mt-1 max-w-[680px] leading-relaxed">
+            <p className="text-slate-600 text-[0.9rem] mt-1 max-w-[680px] leading-relaxed">
               {ctx.subtitle}
             </p>
           )}
@@ -127,7 +127,7 @@ function ContextSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
           {ctx.items.map((item) => (
             <div
               key={item.rank}
-              className="flex items-start gap-3 bg-slate-800/50 border border-white/[0.06] rounded-xl px-4 py-3 hover:border-white/[0.12] transition-colors"
+              className="flex items-start gap-3 bg-white border border-slate-200 rounded-xl px-4 py-3 hover:border-slate-300 transition-colors"
             >
               {/* Rank badge */}
               <span
@@ -139,7 +139,7 @@ function ContextSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
               <div className="flex-1 min-w-0">
                 {/* Label row */}
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[0.92rem] font-bold text-slate-100">{item.label}</span>
+                  <span className="text-[0.92rem] font-bold text-slate-900">{item.label}</span>
                   {item.badge && (
                     <span
                       className={`text-[0.62rem] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full ${color.badge}`}
@@ -149,7 +149,7 @@ function ContextSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
                   )}
                 </div>
                 {/* Detail */}
-                <p className="text-[0.8rem] text-slate-400 leading-snug mt-0.5">{item.detail}</p>
+                <p className="text-[0.8rem] text-slate-600 leading-snug mt-0.5">{item.detail}</p>
               </div>
             </div>
           ))}
@@ -157,7 +157,7 @@ function ContextSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
 
         {/* Footnote */}
         {ctx.footnote && (
-          <p className="text-[0.7rem] text-slate-600 border-t border-white/[0.05] pt-3 leading-relaxed">
+          <p className="text-[0.7rem] text-slate-500 border-t border-slate-200 pt-3 leading-relaxed">
             {ctx.footnote}
           </p>
         )}
@@ -171,9 +171,9 @@ function ContextSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
 function TitleSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
   const PhaseIcon = phase.icon;
   const phaseColors = [
-    { text: "text-rose-400", border: "border-rose-500/30", bg: "bg-rose-500/10", icon: "text-rose-400" },
-    { text: "text-sky-400",  border: "border-sky-500/30",  bg: "bg-sky-500/10",  icon: "text-sky-400"  },
-    { text: "text-emerald-400", border: "border-emerald-500/30", bg: "bg-emerald-500/10", icon: "text-emerald-400" },
+    { text: "text-rose-700", border: "border-rose-300", bg: "bg-rose-50", icon: "text-rose-600" },
+    { text: "text-sky-700",  border: "border-sky-300",  bg: "bg-sky-50",  icon: "text-sky-600"  },
+    { text: "text-emerald-700", border: "border-emerald-300", bg: "bg-emerald-50", icon: "text-emerald-600" },
   ];
   const color = phaseColors[phase.id - 1] ?? phaseColors[0];
 
@@ -187,13 +187,13 @@ function TitleSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
 
         {/* Eye-catching phase label */}
         <div className="flex flex-col items-center gap-3">
-          <span className="text-[0.85rem] font-extrabold uppercase tracking-[0.22em] text-indigo-400">
+          <span className="text-[0.85rem] font-extrabold uppercase tracking-[0.22em] text-indigo-600">
             Phase {phase.id} of {totalPhases} &nbsp;·&nbsp; {phase.duration}
           </span>
-          <h1 className="text-[clamp(3rem,8vw,5.5rem)] font-extrabold text-slate-100 tracking-[-0.045em] leading-[1] max-w-[800px]">
+          <h1 className="text-[clamp(3rem,8vw,5.5rem)] font-extrabold text-slate-900 tracking-[-0.045em] leading-[1] max-w-[800px]">
             {phase.title}
           </h1>
-          <p className="text-[clamp(1rem,2.5vw,1.4rem)] text-slate-400 max-w-[580px] leading-relaxed">
+          <p className="text-[clamp(1rem,2.5vw,1.4rem)] text-slate-600 max-w-[580px] leading-relaxed">
             {phase.tagline}
           </p>
         </div>
@@ -203,22 +203,22 @@ function TitleSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
           {phase.principles.map((p, i) => (
             <span
               key={p.id}
-              className="px-5 py-[0.5rem] rounded-full bg-slate-800 border border-white/[0.09] text-slate-400 text-[0.9rem] font-semibold"
+              className="px-5 py-[0.5rem] rounded-full bg-slate-100 border border-slate-300 text-slate-700 text-[0.9rem] font-semibold"
             >
               {i + 1}. {p.title}
             </span>
           ))}
           {phase.examples && (
-            <span className="px-5 py-[0.5rem] rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[0.9rem] font-semibold">
+            <span className="px-5 py-[0.5rem] rounded-full bg-emerald-50 border border-emerald-300 text-emerald-700 text-[0.9rem] font-semibold">
               Real Examples
             </span>
           )}
-          <span className="px-5 py-[0.5rem] rounded-full bg-violet-500/10 border border-violet-500/25 text-violet-400 text-[0.9rem] font-semibold">
+          <span className="px-5 py-[0.5rem] rounded-full bg-violet-50 border border-violet-300 text-violet-700 text-[0.9rem] font-semibold">
             Live Quiz
           </span>
         </div>
 
-        <div className="flex items-center gap-2 text-slate-600 text-[0.78rem] mt-2">
+        <div className="flex items-center gap-2 text-slate-500 text-[0.78rem] mt-2">
           <Keyboard size={12} />
           <span>Use ← → arrow keys or click the buttons below to navigate</span>
         </div>
@@ -249,7 +249,7 @@ function PrincipleSlide({
       <div className="flex flex-col gap-8">
         {/* Phase label */}
         <div>
-          <span className="text-[0.8rem] font-extrabold uppercase tracking-[0.2em] text-indigo-400">
+          <span className="text-[0.8rem] font-extrabold uppercase tracking-[0.2em] text-indigo-600">
             {label} {index + 1} of {total}
           </span>
         </div>
@@ -262,16 +262,16 @@ function PrincipleSlide({
               <span className="shrink-0 w-[4.5rem] h-[4.5rem] rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-[2rem] font-extrabold text-white shadow-xl shadow-indigo-500/25">
                 {index + 1}
               </span>
-              <h2 className="text-[clamp(1.9rem,4.5vw,3.2rem)] font-extrabold text-slate-100 tracking-[-0.035em] leading-[1.1] pt-1">
+              <h2 className="text-[clamp(1.9rem,4.5vw,3.2rem)] font-extrabold text-slate-900 tracking-[-0.035em] leading-[1.1] pt-1">
                 {principle.title}
               </h2>
             </div>
 
-            <div className="bg-slate-800/50 border border-white/[0.07] rounded-2xl px-6 py-5">
-              <span className="text-[0.65rem] font-extrabold uppercase tracking-[0.18em] text-indigo-400 mb-2 block">
+            <div className="bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5">
+              <span className="text-[0.65rem] font-extrabold uppercase tracking-[0.18em] text-indigo-600 mb-2 block">
                 What it is
               </span>
-              <p className="text-[clamp(0.95rem,2vw,1.15rem)] text-slate-200 leading-relaxed">
+              <p className="text-[clamp(0.95rem,2vw,1.15rem)] text-slate-800 leading-relaxed">
                 {principle.what}
               </p>
             </div>
@@ -279,22 +279,22 @@ function PrincipleSlide({
 
           {/* RIGHT — how + why */}
           <div className="flex flex-col gap-4">
-            <div className="bg-amber-500/8 border border-amber-500/25 rounded-2xl px-6 py-5">
-              <span className="text-[0.65rem] font-extrabold uppercase tracking-[0.18em] text-amber-400 mb-2 block">
+            <div className="bg-amber-50 border border-amber-300 rounded-2xl px-6 py-5">
+              <span className="text-[0.65rem] font-extrabold uppercase tracking-[0.18em] text-amber-700 mb-2 block">
                 How it happens
               </span>
-              <p className="text-[clamp(0.9rem,1.8vw,1.1rem)] text-slate-300 leading-relaxed whitespace-pre-line">
+              <p className="text-[clamp(0.9rem,1.8vw,1.1rem)] text-slate-700 leading-relaxed whitespace-pre-line">
                 {principle.how}
               </p>
             </div>
 
-            <div className="bg-rose-500/8 border border-rose-500/25 rounded-2xl px-6 py-5">
+            <div className="bg-rose-50 border border-rose-300 rounded-2xl px-6 py-5">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-[0.65rem] font-extrabold uppercase tracking-[0.18em] text-rose-400">
+                <span className="text-[0.65rem] font-extrabold uppercase tracking-[0.18em] text-rose-700">
                   Why it works on us
                 </span>
               </div>
-              <p className="text-[clamp(0.9rem,1.8vw,1.1rem)] text-slate-300 leading-relaxed">
+              <p className="text-[clamp(0.9rem,1.8vw,1.1rem)] text-slate-700 leading-relaxed">
                 {principle.why}
               </p>
             </div>
@@ -309,8 +309,8 @@ function PrincipleSlide({
 
 function RedFlagTag({ text }: { text: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/15 border border-red-500/30 text-red-300 text-[0.72rem] font-bold">
-      <span className="w-1.5 h-1.5 rounded-full bg-red-400 flag-ring inline-block shrink-0" />
+    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-100 border border-red-300 text-red-700 text-[0.72rem] font-bold">
+      <span className="w-1.5 h-1.5 rounded-full bg-red-500 flag-ring inline-block shrink-0" />
       {text}
     </span>
   );
@@ -319,22 +319,22 @@ function RedFlagTag({ text }: { text: string }) {
 function MockMessage({ ex }: { ex: ExampleMessage }) {
   const typeConfig = {
     sms: {
-      icon: <MessageSquare size={13} className="text-emerald-400" />,
-      headerBg: "bg-emerald-900/30",
-      border: "border-emerald-500/25",
-      accent: "text-emerald-300",
+      icon: <MessageSquare size={13} className="text-emerald-600" />,
+      headerBg: "bg-emerald-50",
+      border: "border-emerald-300",
+      accent: "text-emerald-700",
     },
     email: {
-      icon: <Mail size={13} className="text-sky-400" />,
-      headerBg: "bg-sky-900/30",
-      border: "border-sky-500/25",
-      accent: "text-sky-300",
+      icon: <Mail size={13} className="text-sky-600" />,
+      headerBg: "bg-sky-50",
+      border: "border-sky-300",
+      accent: "text-sky-700",
     },
     dm: {
-      icon: <MessagesSquare size={13} className="text-violet-400" />,
-      headerBg: "bg-violet-900/30",
-      border: "border-violet-500/25",
-      accent: "text-violet-300",
+      icon: <MessagesSquare size={13} className="text-violet-600" />,
+      headerBg: "bg-violet-50",
+      border: "border-violet-300",
+      accent: "text-violet-700",
     },
   };
   const cfg = typeConfig[ex.type];
@@ -364,7 +364,7 @@ function MockMessage({ ex }: { ex: ExampleMessage }) {
         parts.push(
           <mark
             key={match.index}
-            className="bg-red-500/25 text-red-200 rounded-[3px] px-[2px] not-italic font-bold"
+            className="bg-red-100 text-red-700 rounded-[3px] px-[2px] not-italic font-bold"
           >
             {match[0]}
           </mark>
@@ -373,7 +373,7 @@ function MockMessage({ ex }: { ex: ExampleMessage }) {
         parts.push(
           <mark
             key={match.index}
-            className="bg-orange-500/25 text-orange-200 rounded-[3px] px-[2px] not-italic font-bold underline decoration-orange-400 decoration-dotted"
+            className="bg-orange-100 text-orange-700 rounded-[3px] px-[2px] not-italic font-bold underline decoration-orange-500 decoration-dotted"
           >
             {match[0]}
           </mark>
@@ -386,7 +386,7 @@ function MockMessage({ ex }: { ex: ExampleMessage }) {
   }
 
   return (
-    <div className={`flex flex-col rounded-2xl border ${cfg.border} overflow-hidden bg-slate-900`}>
+    <div className={`flex flex-col rounded-2xl border ${cfg.border} overflow-hidden bg-white`}>
       {/* Type tag */}
       <div className={`${cfg.headerBg} px-4 py-[0.55rem] flex items-center gap-2 border-b ${cfg.border}`}>
         {cfg.icon}
@@ -396,9 +396,9 @@ function MockMessage({ ex }: { ex: ExampleMessage }) {
       </div>
 
       {/* Sender / subject line */}
-      <div className="px-4 py-2 bg-slate-800/60 border-b border-white/[0.06] flex flex-col gap-[0.15rem]">
-        <span className="text-[0.72rem] text-slate-400 font-medium">
-          From: <span className="text-slate-300">{ex.sender}</span>
+      <div className="px-4 py-2 bg-slate-50 border-b border-slate-200 flex flex-col gap-[0.15rem]">
+        <span className="text-[0.72rem] text-slate-600 font-medium">
+          From: <span className="text-slate-800">{ex.sender}</span>
         </span>
         {ex.subject && (
           <span className="text-[0.72rem] text-slate-500">
@@ -408,7 +408,7 @@ function MockMessage({ ex }: { ex: ExampleMessage }) {
       </div>
 
       {/* Body */}
-      <div className="px-4 py-4 text-[0.82rem] text-slate-300 leading-[1.75] whitespace-pre-wrap font-mono flex-1">
+      <div className="px-4 py-4 text-[0.82rem] text-slate-800 leading-[1.75] whitespace-pre-wrap font-mono flex-1">
         {annotate(ex.content)}
       </div>
     </div>
@@ -422,16 +422,16 @@ function ExamplesSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
       <div className="flex flex-col gap-7">
         {/* Heading */}
         <div className="flex flex-col gap-2">
-          <span className="text-[0.8rem] font-extrabold uppercase tracking-[0.2em] text-indigo-400">
+          <span className="text-[0.8rem] font-extrabold uppercase tracking-[0.2em] text-indigo-600">
             Real Examples
           </span>
-          <h2 className="text-[clamp(1.6rem,4vw,2.8rem)] font-extrabold text-slate-100 tracking-[-0.03em] leading-[1.1]">
+          <h2 className="text-[clamp(1.6rem,4vw,2.8rem)] font-extrabold text-slate-900 tracking-[-0.03em] leading-[1.1]">
             Can You Spot the Red Flags?
           </h2>
-          <p className="text-[1rem] text-slate-400">
+          <p className="text-[1rem] text-slate-600">
             These are real scam scripts. Highlighted in{" "}
-            <span className="text-red-300 font-semibold">red</span> = urgency triggers. Highlighted in{" "}
-            <span className="text-orange-300 font-semibold">orange</span> = suspicious links.
+            <span className="text-red-700 font-semibold">red</span> = urgency triggers. Highlighted in{" "}
+            <span className="text-orange-700 font-semibold">orange</span> = suspicious links.
           </p>
         </div>
 
@@ -449,11 +449,11 @@ function ExamplesSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
         </div>
 
         {/* Reminder */}
-        <div className="bg-slate-800 border border-white/[0.07] rounded-2xl px-6 py-4 flex items-start gap-4">
+        <div className="bg-white border border-slate-200 rounded-2xl px-6 py-4 flex items-start gap-4">
           <span className="text-2xl shrink-0">💡</span>
-          <p className="text-[0.95rem] text-slate-300 leading-relaxed">
-            <strong className="text-slate-100">Remember:</strong> Real banks, GCash, and Facebook{" "}
-            <strong className="text-white">never</strong> send links asking you to verify outside
+          <p className="text-[0.95rem] text-slate-700 leading-relaxed">
+            <strong className="text-slate-900">Remember:</strong> Real banks, GCash, and Facebook{" "}
+            <strong className="text-slate-900">never</strong> send links asking you to verify outside
             their official app. Every one of these messages is a scam.
           </p>
         </div>
@@ -466,14 +466,14 @@ function ExamplesSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
 
 function ToolCategoryBadge({ category }: { category: string }) {
   const styles: Record<string, string> = {
-    Habit: "bg-violet-500/15 text-violet-300 border-violet-500/30",
-    App: "bg-sky-500/15 text-sky-300 border-sky-500/30",
-    Website: "bg-amber-500/15 text-amber-300 border-amber-500/30",
-    "Built-in": "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
-    Setting: "bg-indigo-500/15 text-indigo-300 border-indigo-500/30",
-    Report: "bg-rose-500/15 text-rose-300 border-rose-500/30",
+    Habit: "bg-violet-100 text-violet-700 border-violet-300",
+    App: "bg-sky-100 text-sky-700 border-sky-300",
+    Website: "bg-amber-100 text-amber-700 border-amber-300",
+    "Built-in": "bg-emerald-100 text-emerald-700 border-emerald-300",
+    Setting: "bg-indigo-100 text-indigo-700 border-indigo-300",
+    Report: "bg-rose-100 text-rose-700 border-rose-300",
   };
-  const cls = styles[category] ?? "bg-slate-700 text-slate-400 border-slate-600";
+  const cls = styles[category] ?? "bg-slate-100 text-slate-600 border-slate-300";
   return (
     <span className={`text-[0.62rem] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full border ${cls}`}>
       {category}
@@ -486,9 +486,9 @@ function PreventionSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) 
   if (!prevention) return null;
 
   const phaseColors = [
-    { accent: "text-rose-400", bg: "bg-rose-500/10", border: "border-rose-500/25" },
-    { accent: "text-sky-400",  bg: "bg-sky-500/10",  border: "border-sky-500/25"  },
-    { accent: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/25" },
+    { accent: "text-rose-700", bg: "bg-rose-50", border: "border-rose-300" },
+    { accent: "text-sky-700",  bg: "bg-sky-50",  border: "border-sky-300"  },
+    { accent: "text-emerald-700", bg: "bg-emerald-50", border: "border-emerald-300" },
   ];
   const color = phaseColors[phase.id - 1] ?? phaseColors[0];
 
@@ -500,11 +500,11 @@ function PreventionSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) 
           <span className={`text-[0.8rem] font-extrabold uppercase tracking-[0.2em] ${color.accent}`}>
             Prevention &amp; Tools
           </span>
-          <h2 className="text-[clamp(1.5rem,3.5vw,2.2rem)] font-extrabold text-slate-100 tracking-[-0.035em] leading-[1.1]">
+          <h2 className="text-[clamp(1.5rem,3.5vw,2.2rem)] font-extrabold text-slate-900 tracking-[-0.035em] leading-[1.1]">
             {prevention.slideTitle}
           </h2>
           {prevention.subtitle && (
-            <p className="text-slate-400 text-[0.9rem] mt-1 max-w-[680px] leading-relaxed">
+            <p className="text-slate-600 text-[0.9rem] mt-1 max-w-[680px] leading-relaxed">
               {prevention.subtitle}
             </p>
           )}
@@ -515,10 +515,10 @@ function PreventionSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) 
           {prevention.tools.map((tool: PreventionTool, i: number) => (
             <div
               key={i}
-              className="flex flex-col gap-2 bg-slate-800/50 border border-white/[0.06] rounded-xl px-4 py-3 hover:border-white/[0.12] transition-colors"
+              className="flex flex-col gap-2 bg-white border border-slate-200 rounded-xl px-4 py-3 hover:border-slate-300 transition-colors"
             >
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[0.92rem] font-bold text-slate-100">{tool.name}</span>
+                <span className="text-[0.92rem] font-bold text-slate-900">{tool.name}</span>
                 <ToolCategoryBadge category={tool.category} />
                 {tool.badge && (
                   <span className={`text-[0.62rem] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full ${color.bg} ${color.accent} border ${color.border}`}>
@@ -526,24 +526,24 @@ function PreventionSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) 
                   </span>
                 )}
                 {tool.free === true && (
-                  <span className="text-[0.62rem] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full bg-green-500/15 text-green-300 border border-green-500/30">
+                  <span className="text-[0.62rem] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full bg-green-100 text-green-700 border border-green-300">
                     Free
                   </span>
                 )}
               </div>
-              <p className="text-[0.8rem] text-slate-400 leading-snug">{tool.description}</p>
+              <p className="text-[0.8rem] text-slate-600 leading-snug">{tool.description}</p>
             </div>
           ))}
         </div>
 
         {/* Action tip */}
-        <div className="bg-slate-800 border border-white/[0.07] rounded-2xl px-6 py-4 flex items-start gap-4">
+        <div className="bg-white border border-slate-200 rounded-2xl px-6 py-4 flex items-start gap-4">
           <span className="text-2xl shrink-0">💡</span>
           <div>
-            <p className="text-[0.68rem] font-extrabold uppercase tracking-[0.15em] text-indigo-400 mb-1">
+            <p className="text-[0.68rem] font-extrabold uppercase tracking-[0.15em] text-indigo-600 mb-1">
               Your Next Action
             </p>
-            <p className="text-[0.95rem] text-slate-300 leading-relaxed">
+            <p className="text-[0.95rem] text-slate-700 leading-relaxed">
               {prevention.actionTip}
             </p>
           </div>
@@ -583,14 +583,14 @@ function ActivitySlide({
       <div className="flex flex-col gap-7">
         {/* Header */}
         <div className="flex flex-col gap-2">
-          <span className="text-[0.8rem] font-extrabold uppercase tracking-[0.2em] text-violet-400">
+          <span className="text-[0.8rem] font-extrabold uppercase tracking-[0.2em] text-violet-700">
             Quiz Time
           </span>
-          <h2 className="text-[clamp(1.4rem,3.5vw,2.2rem)] font-extrabold text-slate-100 tracking-[-0.03em] leading-[1.2]">
+          <h2 className="text-[clamp(1.4rem,3.5vw,2.2rem)] font-extrabold text-slate-900 tracking-[-0.03em] leading-[1.2]">
             {activity.question}
           </h2>
           {activity.multiSelect && (
-            <p className="text-slate-500 text-[0.9rem]">Select all that apply.</p>
+            <p className="text-slate-600 text-[0.9rem]">Select all that apply.</p>
           )}
         </div>
 
@@ -600,15 +600,15 @@ function ActivitySlide({
             <span className="text-[0.72rem] font-extrabold uppercase tracking-[0.12em] text-slate-500">
               {activity.contextLabel ?? "Read this message:"}
             </span>
-            <div className="bg-slate-900 border-2 border-slate-700 rounded-2xl overflow-hidden shadow-xl">
+            <div className="bg-slate-50 border-2 border-slate-300 rounded-2xl overflow-hidden shadow-sm">
               {/* Fake phone status bar */}
-              <div className="bg-slate-800 px-5 py-2 flex items-center gap-2 border-b border-white/[0.06]">
-                <div className="w-2 h-2 rounded-full bg-slate-600" />
+              <div className="bg-slate-100 px-5 py-2 flex items-center gap-2 border-b border-slate-200">
+                <div className="w-2 h-2 rounded-full bg-slate-400" />
                 <span className="text-[0.7rem] font-bold text-slate-500 uppercase tracking-wider">
                   SMS Message
                 </span>
               </div>
-              <p className="px-6 py-5 text-[1rem] text-slate-200 leading-relaxed font-mono whitespace-pre-wrap">
+              <p className="px-6 py-5 text-[1rem] text-slate-800 leading-relaxed font-mono whitespace-pre-wrap">
                 {activity.context}
               </p>
             </div>
@@ -649,18 +649,18 @@ function ActivitySlide({
           <div
             className={`rounded-2xl border px-6 py-5 ${
               isCorrect
-                ? "bg-green-500/8 border-green-500/30"
-                : "bg-amber-500/8 border-amber-500/30"
+                ? "bg-green-50 border-green-300"
+                : "bg-amber-50 border-amber-300"
             }`}
           >
             <p
               className={`text-[1rem] font-extrabold mb-2 ${
-                isCorrect ? "text-green-300" : "text-amber-300"
+                isCorrect ? "text-green-700" : "text-amber-700"
               }`}
             >
               {isCorrect ? "✓ Correct!" : "Here's what to know:"}
             </p>
-            <p className="text-[0.9rem] text-slate-300 leading-relaxed">
+            <p className="text-[0.9rem] text-slate-700 leading-relaxed">
               {activity.correctExplanation}
             </p>
           </div>
@@ -688,28 +688,28 @@ function ActivityOption({
 
   let containerCls =
     "flex items-start gap-4 border rounded-2xl px-5 py-4 transition-all cursor-pointer text-left w-full font-[inherit] bg-transparent";
-  let letterBg = "bg-slate-700 text-slate-400";
-  let textCls = "text-slate-300";
+  let letterBg = "bg-slate-200 text-slate-600";
+  let textCls = "text-slate-700";
 
   if (!submitted) {
     if (selected) {
-      containerCls += " border-indigo-500/60 bg-indigo-500/10";
-      letterBg = "bg-indigo-500 text-white";
-      textCls = "text-indigo-100";
+      containerCls += " border-indigo-400 bg-indigo-50";
+      letterBg = "bg-indigo-600 text-white";
+      textCls = "text-indigo-900";
     } else {
-      containerCls += " border-white/[0.08] bg-slate-800 hover:border-white/[0.18] hover:bg-slate-750";
+      containerCls += " border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50";
     }
   } else {
     if (opt.correct) {
-      containerCls += " border-green-500/50 bg-green-500/8";
-      letterBg = "bg-green-500 text-white";
-      textCls = "text-green-200";
+      containerCls += " border-green-400 bg-green-50";
+      letterBg = "bg-green-600 text-white";
+      textCls = "text-green-900";
     } else if (selected && !opt.correct) {
-      containerCls += " border-red-500/40 bg-red-500/8";
-      letterBg = "bg-red-500 text-white";
-      textCls = "text-red-300";
+      containerCls += " border-red-400 bg-red-50";
+      letterBg = "bg-red-600 text-white";
+      textCls = "text-red-900";
     } else {
-      containerCls += " border-white/[0.05] bg-slate-800/50 opacity-50";
+      containerCls += " border-slate-100 bg-slate-50 opacity-50";
     }
   }
 
@@ -747,8 +747,8 @@ function ActivityOption({
         <div
           className={`mx-3 px-5 py-3 rounded-b-xl text-[0.83rem] leading-relaxed border border-t-0 ${
             opt.correct
-              ? "bg-green-500/6 text-green-400 border-green-500/30"
-              : "bg-red-500/6 text-red-400 border-red-500/25"
+              ? "bg-green-50 text-green-800 border-green-400"
+              : "bg-red-50 text-red-800 border-red-400"
           }`}
         >
           {opt.feedback}
@@ -777,31 +777,31 @@ function TakeawaySlide({
       <div className="flex flex-col items-center text-center gap-8 max-w-[680px] mx-auto">
         {/* Phase icon in completion state */}
         <div className="relative">
-          <div className="w-20 h-20 rounded-full bg-green-500/15 border-2 border-green-500/40 flex items-center justify-center shadow-xl shadow-green-500/10">
-            <PhaseIcon size={36} className="text-green-400" />
+          <div className="w-20 h-20 rounded-full bg-green-100 border-2 border-green-400 flex items-center justify-center shadow-xl shadow-green-500/10">
+            <PhaseIcon size={36} className="text-green-600" />
           </div>
-          <span className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-green-500 flex items-center justify-center text-white text-[0.75rem] font-extrabold border-2 border-slate-950">
+          <span className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-green-600 flex items-center justify-center text-white text-[0.75rem] font-extrabold border-2 border-white">
             ✓
           </span>
         </div>
 
         <div className="flex flex-col gap-3">
-          <p className="text-[0.9rem] font-extrabold uppercase tracking-[0.2em] text-green-400">
+          <p className="text-[0.9rem] font-extrabold uppercase tracking-[0.2em] text-green-700">
             Phase {phase.id} Complete
           </p>
-          <h2 className="text-[clamp(1.6rem,4vw,2.6rem)] font-extrabold text-slate-100 tracking-[-0.03em] leading-[1.2]">
+          <h2 className="text-[clamp(1.6rem,4vw,2.6rem)] font-extrabold text-slate-900 tracking-[-0.03em] leading-[1.2]">
             {phase.summaryTakeaway}
           </h2>
         </div>
 
         {/* Action box */}
-        <div className="w-full bg-indigo-500/10 border border-indigo-500/30 rounded-2xl px-7 py-6 text-left flex gap-4 items-start">
-          <Target size={24} className="text-indigo-400 shrink-0 mt-0.5" />
+        <div className="w-full bg-indigo-50 border border-indigo-300 rounded-2xl px-7 py-6 text-left flex gap-4 items-start">
+          <Target size={24} className="text-indigo-600 shrink-0 mt-0.5" />
           <div>
-            <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.15em] text-indigo-400 mb-2">
+            <p className="text-[0.72rem] font-extrabold uppercase tracking-[0.15em] text-indigo-600 mb-2">
               Your Action
             </p>
-            <p className="text-[1rem] text-slate-200 leading-relaxed">
+            <p className="text-[1rem] text-slate-800 leading-relaxed">
               {phase.summaryAction}
             </p>
           </div>
@@ -834,7 +834,7 @@ function NavBar({
   onNext: () => void;
 }) {
   return (
-    <div className="shrink-0 border-t border-white/[0.07] bg-slate-950/80 backdrop-blur px-8 py-4 flex items-center gap-6 max-md:px-4">
+    <div className="shrink-0 border-t border-slate-200 bg-white/95 backdrop-blur px-8 py-4 flex items-center gap-6 max-md:px-4">
       {/* Prev */}
       <button
         onClick={onPrev}
@@ -856,15 +856,15 @@ function NavBar({
               key={i}
               className={`rounded-full transition-all duration-300 ${
                 i === slideIndex
-                  ? "w-6 h-2 bg-indigo-400"
+                  ? "w-6 h-2 bg-indigo-600"
                   : i < slideIndex
-                  ? "w-2 h-2 bg-slate-600"
-                  : "w-2 h-2 bg-slate-700"
+                  ? "w-2 h-2 bg-slate-400"
+                  : "w-2 h-2 bg-slate-300"
               }`}
             />
           ))}
         </div>
-        <span className="text-[0.7rem] font-semibold text-slate-600 tracking-wide">
+        <span className="text-[0.7rem] font-semibold text-slate-500 tracking-wide">
           {slideLabels[slideIndex]} &nbsp;·&nbsp; {slideIndex + 1} / {totalSlides}
         </span>
       </div>

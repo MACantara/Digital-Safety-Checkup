@@ -15,17 +15,17 @@ export default function Summary({ completedPhases, onReset }: SummaryProps) {
   return (
     <main className="max-w-[720px] mx-auto px-6 pt-10 pb-20 flex flex-col gap-10">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-indigo-500/10 to-violet-500/10 border border-indigo-500/20 rounded-[1.5rem] px-8 py-10 flex flex-col items-center text-center gap-4">
+      <section className="bg-gradient-to-br from-indigo-50 to-violet-50 border border-indigo-200 rounded-[1.5rem] px-8 py-10 flex flex-col items-center text-center gap-4">
         <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-2xl font-extrabold shadow-lg shadow-indigo-500/20">
           {allDone ? "✓" : completedCount}
         </div>
         <div>
-          <h1 className="text-[1.8rem] font-extrabold text-slate-100 tracking-[-0.025em] mb-2">
+          <h1 className="text-[1.8rem] font-extrabold text-slate-900 tracking-[-0.025em] mb-2">
             {allDone
               ? "You finished the Digital Safety Checkup!"
               : `You completed ${completedCount} of ${totalPhases} phases`}
           </h1>
-          <p className="text-slate-400 text-[0.9rem] leading-relaxed max-w-[480px] mx-auto">
+          <p className="text-slate-600 text-[0.9rem] leading-relaxed max-w-[480px] mx-auto">
             {allDone
               ? "You now know how to spot scams, protect your data, and upgrade your passwords. Those 15 minutes could save your accounts — and your money."
               : "Come back to complete the remaining phases — each one adds a practical layer of protection."}
@@ -42,17 +42,17 @@ export default function Summary({ completedPhases, onReset }: SummaryProps) {
                 key={phase.id}
                 className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl border transition-colors ${
                   done
-                    ? "border-indigo-500/40 bg-indigo-500/10"
-                    : "border-white/[0.07] bg-slate-800/50"
+                    ? "border-indigo-300 bg-indigo-100"
+                    : "border-slate-200 bg-slate-50"
                 }`}
               >
                 <PhaseIcon
                   size={16}
-                  className={done ? "text-indigo-400" : "text-slate-600"}
+                  className={done ? "text-indigo-600" : "text-slate-400"}
                 />
                 <span
                   className={`text-[0.65rem] font-semibold ${
-                    done ? "text-indigo-300" : "text-slate-600"
+                    done ? "text-indigo-700" : "text-slate-500"
                   }`}
                 >
                   {done ? "✓" : `P${phase.id}`}
@@ -65,7 +65,7 @@ export default function Summary({ completedPhases, onReset }: SummaryProps) {
 
       {/* Key takeaways — one per phase */}
       <section className="flex flex-col gap-3">
-        <h2 className="text-[0.72rem] font-bold uppercase tracking-[0.1em] text-slate-600">
+        <h2 className="text-[0.72rem] font-bold uppercase tracking-[0.1em] text-slate-500">
           Key Takeaways
         </h2>
         <div className="flex flex-col gap-3">
@@ -75,33 +75,33 @@ export default function Summary({ completedPhases, onReset }: SummaryProps) {
             return (
               <div
                 key={phase.id}
-                className={`flex gap-4 items-start bg-slate-800 border rounded-xl px-5 py-4 ${
-                  done ? "border-white/[0.08]" : "border-white/[0.04] opacity-50"
+                className={`flex gap-4 items-start bg-white border rounded-xl px-5 py-4 ${
+                  done ? "border-slate-200" : "border-slate-100 opacity-60"
                 }`}
               >
                 <div
                   className={`shrink-0 w-9 h-9 rounded-full flex items-center justify-center ${
                     done
-                      ? "bg-indigo-500/15 border border-indigo-500/25"
-                      : "bg-slate-700 border border-white/[0.06]"
+                      ? "bg-indigo-100 border border-indigo-200"
+                      : "bg-slate-100 border border-slate-200"
                   }`}
                 >
                   <PhaseIcon
                     size={16}
-                    className={done ? "text-indigo-400" : "text-slate-600"}
+                    className={done ? "text-indigo-600" : "text-slate-400"}
                   />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p
                     className={`text-[0.7rem] font-bold uppercase tracking-[0.08em] mb-[0.3rem] ${
-                      done ? "text-indigo-400" : "text-slate-600"
+                      done ? "text-indigo-600" : "text-slate-500"
                     }`}
                   >
                     Phase {phase.id}: {phase.title}
                   </p>
                   <p
                     className={`text-[0.875rem] leading-relaxed ${
-                      done ? "text-slate-300" : "text-slate-600"
+                      done ? "text-slate-700" : "text-slate-500"
                     }`}
                   >
                     {phase.summaryTakeaway}
@@ -115,22 +115,22 @@ export default function Summary({ completedPhases, onReset }: SummaryProps) {
 
       {/* Immediate actions */}
       <section className="flex flex-col gap-3">
-        <h2 className="text-[0.72rem] font-bold uppercase tracking-[0.1em] text-slate-600">
+        <h2 className="text-[0.72rem] font-bold uppercase tracking-[0.1em] text-slate-500">
           Your 3 Immediate Actions
         </h2>
-        <p className="text-[0.82rem] text-slate-500 -mt-1">
+        <p className="text-[0.82rem] text-slate-600 -mt-1">
           Do these today — they cover 80% of your risk.
         </p>
         <div className="flex flex-col gap-3">
           {phases.map((phase, i) => (
             <div
               key={phase.id}
-              className="flex gap-4 items-start bg-slate-800 border border-white/[0.07] rounded-xl px-5 py-4"
+              className="flex gap-4 items-start bg-white border border-slate-200 rounded-xl px-5 py-4"
             >
               <span className="shrink-0 w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-[0.72rem] font-extrabold text-white">
                 {i + 1}
               </span>
-              <p className="text-[0.875rem] text-slate-300 leading-relaxed">
+              <p className="text-[0.875rem] text-slate-700 leading-relaxed">
                 {phase.summaryAction}
               </p>
             </div>
@@ -139,17 +139,17 @@ export default function Summary({ completedPhases, onReset }: SummaryProps) {
       </section>
 
       {/* "If you only do one thing" callout */}
-      <div className="rounded-2xl border border-amber-500/25 bg-amber-500/6 px-6 py-5">
-        <p className="text-[0.72rem] font-bold uppercase tracking-[0.1em] text-amber-400 mb-2">
+      <div className="rounded-2xl border border-amber-300 bg-amber-50 px-6 py-5">
+        <p className="text-[0.72rem] font-bold uppercase tracking-[0.1em] text-amber-700 mb-2">
           If you only do one thing
         </p>
-        <p className="text-[0.9rem] text-slate-300 leading-relaxed">
-          Enable <strong className="text-white">2FA on your email account</strong> right now. Your email controls everything else — every password reset, every account. Protecting it is the single highest-impact action you can take. Takes under 2 minutes.
+        <p className="text-[0.9rem] text-slate-700 leading-relaxed">
+          Enable <strong className="text-slate-900">2FA on your email account</strong> right now. Your email controls everything else — every password reset, every account. Protecting it is the single highest-impact action you can take. Takes under 2 minutes.
         </p>
       </div>
 
       {/* Navigation */}
-      <div className="flex gap-3 flex-wrap pt-2 border-t border-white/[0.07]">
+      <div className="flex gap-3 flex-wrap pt-2 border-t border-slate-200">
         {!allDone && (
           <button
             className="btn btn-primary btn-lg"
