@@ -81,10 +81,6 @@ export default function Welcome({ onReset }) {
           </div>
         </div>
       </section>
-
-      <div className="welcome__privacy-note">
-        🔒 All data stays in your browser — nothing is sent to any server.
-      </div>
     </main>
   );
 }

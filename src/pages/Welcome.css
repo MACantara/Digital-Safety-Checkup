@@ -138,13 +138,3 @@
   font-size: 0.85rem;
   line-height: 1.6;
 }
-
-.welcome__privacy-note {
-  text-align: center;
-  font-size: 0.8rem;
-  color: #475569;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
