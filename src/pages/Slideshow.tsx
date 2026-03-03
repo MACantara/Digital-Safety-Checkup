@@ -705,9 +705,22 @@ export default function Slideshow({ onComplete }: SlideshowProps) {
   const [slideIndex, setSlideIndex] = useState(0);
   const [dir, setDir] = useState<"fwd" | "back">("fwd");
 
+  // Track previous phaseId to reset state synchronously on phase change
+  const [prevPhaseId, setPrevPhaseId] = useState(phaseId);
+
   // Activity state
   const [quizSelected, setQuizSelected] = useState<Set<string>>(new Set());
   const [quizSubmitted, setQuizSubmitted] = useState(false);
+
+  // Synchronous reset when the phase changes — prevents slideIndex from being
+  // out-of-bounds during the first render with the new phase's slide array.
+  if (prevPhaseId !== phaseId) {
+    setPrevPhaseId(phaseId);
+    setSlideIndex(0);
+    setDir("fwd");
+    setQuizSelected(new Set());
+    setQuizSubmitted(false);
+  }
 
   if (!phase) {
     navigate("/", { replace: true });
@@ -715,7 +728,9 @@ export default function Slideshow({ onComplete }: SlideshowProps) {
   }
 
   const slides = buildSlides(phase);
-  const currentSlide = slides[slideIndex];
+  // Clamp as a safety net so currentSlide is never undefined
+  const safeIndex = Math.max(0, Math.min(slideIndex, slides.length - 1));
+  const currentSlide = slides[safeIndex];
   const isLastPhase = phase.id === totalPhases;
 
   // Generate human-readable labels for the nav bar
@@ -736,18 +751,18 @@ export default function Slideshow({ onComplete }: SlideshowProps) {
 
   const goNext = useCallback(() => {
     if (!canGoNext) return;
-    if (slideIndex < slides.length - 1) {
+    if (safeIndex < slides.length - 1) {
       setDir("fwd");
-      setSlideIndex((i) => i + 1);
+      setSlideIndex(safeIndex + 1);
     }
-  }, [slideIndex, slides.length, canGoNext]);
+  }, [safeIndex, slides.length, canGoNext]);
 
   const goPrev = useCallback(() => {
-    if (slideIndex > 0) {
+    if (safeIndex > 0) {
       setDir("back");
-      setSlideIndex((i) => i - 1);
+      setSlideIndex(safeIndex - 1);
     }
-  }, [slideIndex]);
+  }, [safeIndex]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -759,14 +774,6 @@ export default function Slideshow({ onComplete }: SlideshowProps) {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [goNext, goPrev]);
-
-  // Reset quiz state when navigating to this phase fresh
-  useEffect(() => {
-    setSlideIndex(0);
-    setDir("fwd");
-    setQuizSelected(new Set());
-    setQuizSubmitted(false);
-  }, [phaseId]);
 
   const handleQuizToggle = (id: string) => {
     if (quizSubmitted) return;
@@ -844,7 +851,7 @@ export default function Slideshow({ onComplete }: SlideshowProps) {
 
       {/* Fixed bottom nav bar */}
       <NavBar
-        slideIndex={slideIndex}
+        slideIndex={safeIndex}
         totalSlides={slides.length}
         slideLabels={slideLabels}
         canGoNext={canGoNext}
