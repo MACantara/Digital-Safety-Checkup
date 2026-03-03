@@ -1,7 +1,4 @@
-// Base URL is injected at build time via the VITE_API_URL environment variable.
-// In Railway: set VITE_API_URL=https://your-api-service.up.railway.app on the
-// frontend service before building. Leave empty for same-origin setups.
-const API_BASE = import.meta.env.VITE_API_URL ?? "";
+// API calls are same-origin — Express serves both the frontend and the API.
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -50,7 +47,7 @@ export function getSessionId(): string {
 /** Fire-and-forget — never throws, never blocks the UI. */
 export async function submitResults(payload: SubmissionPayload): Promise<void> {
   try {
-    await fetch(`${API_BASE}/api/submissions`, {
+    await fetch("/api/submissions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
