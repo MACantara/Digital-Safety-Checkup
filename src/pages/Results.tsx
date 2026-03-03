@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { LucideIcon } from "lucide-react";
 import { ArrowLeft, Trophy } from "lucide-react";
@@ -8,6 +9,7 @@ import {
   severityWeight,
 } from "../data/checklistData";
 import ScoreGauge from "../components/ScoreGauge";
+import { getSessionId, submitResults } from "../lib/api";
 
 interface ResultsProps {
   checkedIds: Set<string>;
@@ -47,6 +49,48 @@ export default function Results({ checkedIds, onReset }: ResultsProps) {
 
   const totalCount = categories.reduce((s, c) => s + c.items.length, 0);
   const doneCount = checkedIds.size;
+
+  // ── Submit results to analytics API (once per mount, non-blocking) ──────────
+  const submitted = useRef(false);
+  useEffect(() => {
+    if (submitted.current) return;
+    submitted.current = true;
+
+    const categoryBreakdown = categories.map((cat) => {
+      const checked = cat.items.filter((i) => checkedIds.has(i.id)).length;
+      return {
+        id: cat.id,
+        title: cat.title,
+        checked,
+        total: cat.items.length,
+        percentage: Math.round((checked / cat.items.length) * 100),
+      };
+    });
+
+    const severitySummary = {
+      critical: { checked: 0, total: 0 },
+      high: { checked: 0, total: 0 },
+      medium: { checked: 0, total: 0 },
+      low: { checked: 0, total: 0 },
+    };
+    for (const cat of categories) {
+      for (const item of cat.items) {
+        const sev = item.severity as keyof typeof severitySummary;
+        severitySummary[sev].total++;
+        if (checkedIds.has(item.id)) severitySummary[sev].checked++;
+      }
+    }
+
+    void submitResults({
+      sessionId: getSessionId(),
+      score,
+      totalChecked: checkedIds.size,
+      totalItems: totalCount,
+      checkedIds: [...checkedIds],
+      categoryBreakdown,
+      severitySummary,
+    });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <main className="max-w-[820px] mx-auto px-6 pt-10 pb-20 flex flex-col gap-12">
