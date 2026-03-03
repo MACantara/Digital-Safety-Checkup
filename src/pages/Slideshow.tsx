@@ -24,6 +24,7 @@ import {
 
 type Slide =
   | { type: "title" }
+  | { type: "context" }
   | { type: "principle"; index: number }
   | { type: "examples" }
   | { type: "activity" }
@@ -31,6 +32,7 @@ type Slide =
 
 function buildSlides(phase: Phase): Slide[] {
   const slides: Slide[] = [{ type: "title" }];
+  if (phase.context) slides.push({ type: "context" });
   phase.principles.forEach((_, i) => slides.push({ type: "principle", index: i }));
   if (phase.examples?.length) slides.push({ type: "examples" });
   slides.push({ type: "activity" });
@@ -60,6 +62,104 @@ function SlideWrapper({
         {children}
       </div>
     </div>
+  );
+}
+
+// ─── Slide: Context ──────────────────────────────────────────────────────────
+
+function ContextSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
+  const ctx = phase.context;
+  if (!ctx) return null;
+
+  const phaseColors = [
+    {
+      accent: "text-rose-400",
+      border: "border-rose-500/25",
+      bg: "bg-rose-500/10",
+      badge: "bg-rose-500/15 text-rose-300 border border-rose-500/30",
+      rankBg: "bg-rose-500/10",
+    },
+    {
+      accent: "text-sky-400",
+      border: "border-sky-500/25",
+      bg: "bg-sky-500/10",
+      badge: "bg-sky-500/15 text-sky-300 border border-sky-500/30",
+      rankBg: "bg-sky-500/10",
+    },
+    {
+      accent: "text-emerald-400",
+      border: "border-emerald-500/25",
+      bg: "bg-emerald-500/10",
+      badge: "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30",
+      rankBg: "bg-emerald-500/10",
+    },
+  ];
+  const color = phaseColors[phase.id - 1] ?? phaseColors[0];
+  const isTenItems = ctx.items.length >= 8;
+
+  return (
+    <SlideWrapper dir={dir} slideKey="context">
+      <div className="flex flex-col gap-5">
+        {/* Header */}
+        <div className="flex flex-col gap-1">
+          <span className={`text-[0.8rem] font-extrabold uppercase tracking-[0.2em] ${color.accent}`}>
+            Context
+          </span>
+          <h2 className="text-[clamp(1.5rem,3.5vw,2.2rem)] font-extrabold text-slate-100 tracking-[-0.035em] leading-[1.1]">
+            {ctx.slideTitle}
+          </h2>
+          {ctx.subtitle && (
+            <p className="text-slate-400 text-[0.9rem] mt-1 max-w-[680px] leading-relaxed">
+              {ctx.subtitle}
+            </p>
+          )}
+        </div>
+
+        {/* Items grid */}
+        <div
+          className={`grid ${
+            isTenItems ? "grid-cols-2 max-md:grid-cols-1" : "grid-cols-2 max-md:grid-cols-1"
+          } gap-2.5`}
+        >
+          {ctx.items.map((item) => (
+            <div
+              key={item.rank}
+              className="flex items-start gap-3 bg-slate-800/50 border border-white/[0.06] rounded-xl px-4 py-3 hover:border-white/[0.12] transition-colors"
+            >
+              {/* Rank badge */}
+              <span
+                className={`shrink-0 w-7 h-7 rounded-lg ${color.rankBg} border ${color.border} flex items-center justify-center text-[0.72rem] font-extrabold ${color.accent} mt-0.5`}
+              >
+                {item.rank}
+              </span>
+
+              <div className="flex-1 min-w-0">
+                {/* Label row */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-[0.92rem] font-bold text-slate-100">{item.label}</span>
+                  {item.badge && (
+                    <span
+                      className={`text-[0.62rem] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full ${color.badge}`}
+                    >
+                      {item.badge}
+                    </span>
+                  )}
+                </div>
+                {/* Detail */}
+                <p className="text-[0.8rem] text-slate-400 leading-snug mt-0.5">{item.detail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Footnote */}
+        {ctx.footnote && (
+          <p className="text-[0.7rem] text-slate-600 border-t border-white/[0.05] pt-3 leading-relaxed">
+            {ctx.footnote}
+          </p>
+        )}
+      </div>
+    </SlideWrapper>
   );
 }
 
@@ -736,6 +836,7 @@ export default function Slideshow({ onComplete }: SlideshowProps) {
   // Generate human-readable labels for the nav bar
   const slideLabels: string[] = slides.map((s) => {
     if (s.type === "title") return "Introduction";
+    if (s.type === "context") return "Context";
     if (s.type === "principle") {
       const p = phase.principles[s.index];
       return p.title;
@@ -806,6 +907,7 @@ export default function Slideshow({ onComplete }: SlideshowProps) {
     const s = currentSlide;
     const p = phase!;
     if (s.type === "title") return <TitleSlide phase={p} dir={dir} />;
+    if (s.type === "context") return <ContextSlide phase={p} dir={dir} />;
     if (s.type === "principle")
       return (
         <PrincipleSlide

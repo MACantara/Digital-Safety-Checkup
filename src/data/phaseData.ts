@@ -36,6 +36,20 @@ export interface Activity {
   correctExplanation: string;
 }
 
+export interface ContextItem {
+  rank: number;
+  label: string;
+  detail: string;
+  badge?: string;
+}
+
+export interface PhaseContext {
+  slideTitle: string;
+  subtitle?: string;
+  items: ContextItem[];
+  footnote?: string;
+}
+
 export interface Phase {
   id: number;
   title: string;
@@ -43,6 +57,7 @@ export interface Phase {
   icon: LucideIcon;
   tagline: string;
   principles: Principle[];
+  context?: PhaseContext;
   examples?: ExampleMessage[];
   activity: Activity;
   summaryTakeaway: string;
@@ -157,6 +172,70 @@ export const phases: Phase[] = [
       correctExplanation:
         "Two red flags: (1) Urgency — \"NOW\" and threat of suspension force you to act without thinking. (2) Fake domain — gcash-secure-verify.net is not gcash.com. Real GCash never sends links outside their app.",
     },
+    context: {
+      slideTitle: "Top 10 Online Scams in the Philippines",
+      subtitle: "These are the scams most frequently reported to BSP, NBI, and PNP-ACG.",
+      items: [
+        {
+          rank: 1,
+          label: "OTP / Account Takeover",
+          detail: "A fake \"bank agent\" calls and asks for the OTP just sent to your phone to \"verify\" your account.",
+          badge: "#1 Most Reported",
+        },
+        {
+          rank: 2,
+          label: "Online Selling Fraud",
+          detail: "Fake sellers or buyers on Facebook Marketplace and OLX — payment made, goods never arrive (or vice versa).",
+          badge: "₱Billions Lost",
+        },
+        {
+          rank: 3,
+          label: "SMS & Email Phishing",
+          detail: "Links disguised as bank alerts (BDO, BPI, Metrobank), GCash notices, or government messages.",
+        },
+        {
+          rank: 4,
+          label: "Fake Job Offers",
+          detail: "High-paying work-from-home roles that require an upfront \"processing fee\" or government ID before you can start.",
+          badge: "Targets Fresh Grads",
+        },
+        {
+          rank: 5,
+          label: "Investment / Ponzi Schemes",
+          detail: "Social media ads and influencer posts promising 20–50% monthly returns on crypto or \"managed funds.\"",
+          badge: "₱8B+ Lost (2023)",
+        },
+        {
+          rank: 6,
+          label: "Vishing (Voice Phishing)",
+          detail: "Callers impersonate BSP, BIR, SSS, or PAGCOR officers and threaten arrest unless you pay or share info.",
+        },
+        {
+          rank: 7,
+          label: "Romance Scams",
+          detail: "Strangers build weeks of online intimacy, then ask for money, a \"plane ticket,\" or crypto for an emergency.",
+          badge: "Pig Butchering",
+        },
+        {
+          rank: 8,
+          label: "Tech Support Scams",
+          detail: "\"Microsoft\" or \"Google\" calls warning your device is infected — they request remote access to \"fix\" it.",
+        },
+        {
+          rank: 9,
+          label: "Loan App Scams",
+          detail: "Apps that grant small loans then harvest your contacts and photos, using them for harassment and extortion.",
+          badge: "Data Theft Risk",
+        },
+        {
+          rank: 10,
+          label: "QR Code Fraud",
+          detail: "Tampered QR codes at restaurants, stalls, or fundraisers that redirect your GCash payment to the scammer.",
+        },
+      ],
+      footnote:
+        "Sources: BSP Consumer Assistance Mechanism 2024 · NBI Cybercrime Division · PNP Anti-Cybercrime Group (PNP-ACG) · DICT 2023 Cybersecurity Report",
+    },
     summaryTakeaway:
       "Manufactured urgency + a suspicious domain = scam. Pause before you click anything.",
     summaryAction:
@@ -246,6 +325,49 @@ export const phases: Phase[] = [
       correctExplanation:
         "The 3 steps after a hack: ① Change password (locks them out now). ② Enable 2FA (closes the door even if they have your password). ③ Check login activity (log out unknown sessions, see what was accessed).",
     },
+    context: {
+      slideTitle: "Why Data Protection Matters: The Numbers",
+      subtitle: "These are not hypothetical risks — they have already happened, including here in the Philippines.",
+      items: [
+        {
+          rank: 1,
+          label: "90 Million+ Filipinos",
+          detail: "Voter records leaked from a 2016 COMELEC breach — full names, birthdays, addresses, fingerprints. One of Asia's largest ever.",
+          badge: "Largest PH Breach",
+        },
+        {
+          rank: 2,
+          label: "₱3.8 Billion Lost",
+          detail: "Cybercrime losses reported to BSP in 2023 alone — up from ₱791 million in 2022. A nearly 5× increase in one year.",
+          badge: "5× Increase",
+        },
+        {
+          rank: 3,
+          label: "81% of Breaches",
+          detail: "Involve stolen or weak passwords (Verizon DBIR 2024). Your password is the first line of defence — and the most common failure point.",
+          badge: "Key Stat",
+        },
+        {
+          rank: 4,
+          label: "207 Days on Average",
+          detail: "How long it takes a company to even detect a data breach (IBM 2024). Your data may have been stolen months before anyone tells you.",
+        },
+        {
+          rank: 5,
+          label: "1 in 3 Filipinos",
+          detail: "Have clicked a phishing link, according to a 2023 DICT cybersecurity survey — making Filipinos among the most targeted in Southeast Asia.",
+          badge: "Local Finding",
+        },
+        {
+          rank: 6,
+          label: "30 Seconds",
+          detail: "How long it takes a thief to open GCash on an unlocked stolen phone and transfer your entire balance to an anonymous account.",
+          badge: "Lock Your Phone",
+        },
+      ],
+      footnote:
+        "Sources: IBM Cost of Data Breach Report 2024 · Verizon DBIR 2024 · BSP Consumer Protection Report 2024 · DICT 2023 Cybersecurity Survey · COMELEC Incident Report 2016",
+    },
     summaryTakeaway:
       "Your email + 2FA = your most important security combination. Whoever controls your email controls everything.",
     summaryAction:
@@ -320,6 +442,74 @@ export const phases: Phase[] = [
       multiSelect: false,
       correctExplanation:
         "River-Coffee-Sunset-92! wins because of length — 23 characters. At billions of guesses per second, it still takes centuries. Use the formula: 3 unrelated words + number + symbol. That's it.",
+    },
+    context: {
+      slideTitle: "World's Most Common Passwords (2024)",
+      subtitle: "These are the actual passwords used most often worldwide — and how fast a modern computer cracks each one.",
+      items: [
+        {
+          rank: 1,
+          label: "123456",
+          detail: "Pure consecutive numbers — the most predictable sequence imaginable.",
+          badge: "< 1 second",
+        },
+        {
+          rank: 2,
+          label: "password",
+          detail: "The word \"password\" as a password. Hacking tools check this before anything else.",
+          badge: "< 1 second",
+        },
+        {
+          rank: 3,
+          label: "123456789",
+          detail: "Longer number sequence — still zero randomness, still cracked instantly.",
+          badge: "< 1 second",
+        },
+        {
+          rank: 4,
+          label: "12345678",
+          detail: "One digit shorter than the above. Equally instant.",
+          badge: "< 1 second",
+        },
+        {
+          rank: 5,
+          label: "12345",
+          detail: "Used by millions despite being only 5 characters with no variation.",
+          badge: "< 1 second",
+        },
+        {
+          rank: 6,
+          label: "qwerty123",
+          detail: "Keyboard rows feel random but are the first patterns hacking tools try.",
+          badge: "< 1 second",
+        },
+        {
+          rank: 7,
+          label: "000000",
+          detail: "Six zeroes. Often the default left unchanged on new accounts and devices.",
+          badge: "< 1 second",
+        },
+        {
+          rank: 8,
+          label: "iloveyou",
+          detail: "Common phrase — all dictionary-style passwords fall in under a millisecond.",
+          badge: "< 1 second",
+        },
+        {
+          rank: 9,
+          label: "admin",
+          detail: "Default system username and password — unchanged by millions of users and router owners.",
+          badge: "< 1 second",
+        },
+        {
+          rank: 10,
+          label: "abc123",
+          detail: "Alphabet start + numbers. One of the most common \"I made it harder\" passwords that isn't harder at all.",
+          badge: "< 1 second",
+        },
+      ],
+      footnote:
+        "Source: NordPass Most Common Passwords 2024 · HaveIBeenPwned.com · Hive Systems Password Table 2024. Crack times assume a modern GPU attack at ~10 billion guesses/second.",
     },
     summaryTakeaway:
       "Passphrase formula: [Word]-[Word]-[Word]-[Number][Symbol]. Longer is always stronger. Never reuse.",
