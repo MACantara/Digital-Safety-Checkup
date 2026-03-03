@@ -12,6 +12,9 @@ RUN npm run build
 # ── Stage 2: serve ────────────────────────────────────────────────────────────
 FROM nginx:stable-alpine AS runner
 
+# Default port; Railway overrides this with its own PORT env var
+ENV PORT=80
+
 # Copy built assets
 COPY --from=builder /app/dist /usr/share/nginx/html
 
