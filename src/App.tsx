@@ -2,64 +2,61 @@ import { useState, useCallback } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Welcome from "./pages/Welcome";
-import Checklist from "./pages/Checklist";
-import Results from "./pages/Results";
-import { totalItems } from "./data/checklistData";
+import PhaseLearn from "./pages/PhaseLearn";
+import PhaseActivity from "./pages/PhaseActivity";
+import Summary from "./pages/Summary";
 
-const STORAGE_KEY = "dsc-checked";
+const STORAGE_KEY = "dsc-completed-phases";
 
-function loadChecked(): Set<string> {
+function loadCompleted(): Set<number> {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return new Set<string>(JSON.parse(raw) as string[]);
+    if (raw) return new Set<number>(JSON.parse(raw) as number[]);
   } catch {}
-  return new Set<string>();
+  return new Set<number>();
 }
 
-function saveChecked(set: Set<string>): void {
+function saveCompleted(set: Set<number>): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
   } catch {}
 }
 
 function AppContent() {
-  const [checkedIds, setCheckedIds] = useState(loadChecked);
+  const [completedPhases, setCompletedPhases] = useState(loadCompleted);
 
-  const handleToggle = useCallback((id: string) => {
-    setCheckedIds((prev) => {
+  const handleComplete = useCallback((phaseId: number) => {
+    setCompletedPhases((prev) => {
+      if (prev.has(phaseId)) return prev;
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      saveChecked(next);
+      next.add(phaseId);
+      saveCompleted(next);
       return next;
     });
   }, []);
 
   const handleReset = useCallback(() => {
-    const empty = new Set<string>();
-    saveChecked(empty);
-    setCheckedIds(empty);
+    const empty = new Set<number>();
+    saveCompleted(empty);
+    setCompletedPhases(empty);
   }, []);
 
   return (
     <>
-      <Header
-        totalChecked={checkedIds.size}
-        totalItems={totalItems}
-      />
+      <Header completedPhases={completedPhases} />
       <Routes>
-        <Route path="/" element={<Welcome onReset={handleReset} />} />
         <Route
-          path="/checklist"
-          element={
-            <Checklist checkedIds={checkedIds} onToggle={handleToggle} />
-          }
+          path="/"
+          element={<Welcome completedPhases={completedPhases} onReset={handleReset} />}
+        />
+        <Route path="/phase/:phaseId/learn" element={<PhaseLearn />} />
+        <Route
+          path="/phase/:phaseId/activity"
+          element={<PhaseActivity onComplete={handleComplete} />}
         />
         <Route
-          path="/results"
-          element={
-            <Results checkedIds={checkedIds} onReset={handleReset} />
-          }
+          path="/summary"
+          element={<Summary completedPhases={completedPhases} onReset={handleReset} />}
         />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
