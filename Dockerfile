@@ -1,5 +1,5 @@
-# ── Stage 1: build ────────────────────────────────────────────────────────────
-FROM node:22-alpine AS builder
+# ── Stage 1: build frontend ─────────────────────────────────────────────────────
+FROM node:22-alpine AS frontend-builder
 
 WORKDIR /app
 
@@ -9,22 +9,35 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-# ── Stage 2: serve ────────────────────────────────────────────────────────────
-FROM nginx:stable-alpine AS runner
+# ── Stage 2: build server ─────────────────────────────────────────────────────
+FROM node:22-alpine AS server-builder
 
-# Default port; Railway overrides this with its own PORT env var
-ENV PORT=80
+WORKDIR /server
 
-# Copy built assets
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY server/package.json ./
+RUN npm install
 
-# Copy nginx config template.
-# The official nginx image processes files in /etc/nginx/templates/ using
-# envsubst before startup, outputting to /etc/nginx/conf.d/ — so ${PORT}
-# is replaced with Railway's injected PORT env var at container boot.
-COPY nginx.conf /etc/nginx/templates/default.conf.template
+COPY server/tsconfig.json ./
+COPY server/src ./src
+RUN npm run build
 
-# Railway routes to the PORT env var; expose as documentation
-EXPOSE 80
+# ── Stage 3: run ────────────────────────────────────────────────────────────
+FROM node:22-alpine AS runner
 
-CMD ["nginx", "-g", "daemon off;"]
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+# Install production server dependencies only
+COPY server/package.json ./
+RUN npm install --omit=dev
+
+# Copy compiled API server
+COPY --from=server-builder /server/dist ./dist
+
+# Copy Vite-built frontend into public/ (Express will serve this)
+COPY --from=frontend-builder /app/dist ./public
+
+EXPOSE 3000
+
+CMD ["node", "dist/index.js"]
