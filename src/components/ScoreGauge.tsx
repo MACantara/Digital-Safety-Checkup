@@ -1,5 +1,4 @@
 import { getScoreLabel } from "../data/checklistData";
-import "./ScoreGauge.css";
 
 interface ScoreGaugeProps {
   score: number;
@@ -9,25 +8,23 @@ interface ScoreGaugeProps {
 export default function ScoreGauge({ score, large = false }: ScoreGaugeProps) {
   const { label, color } = getScoreLabel(score);
 
-  // SVG arc gauge
   const radius = large ? 80 : 54;
   const stroke = large ? 10 : 7;
   const cx = radius + stroke;
   const cy = radius + stroke;
   const size = (radius + stroke) * 2;
-  const circumference = Math.PI * radius; // half-circle
+  const circumference = Math.PI * radius;
   const offset = circumference - (score / 100) * circumference;
 
   return (
-    <div className={`score-gauge ${large ? "score-gauge--large" : ""}`}>
+    <div className="relative inline-flex flex-col items-center">
       <svg
         width={size}
         height={cx}
         viewBox={`0 0 ${size} ${cx}`}
-        className="score-gauge__svg"
+        className="block overflow-visible"
         aria-hidden="true"
       >
-        {/* Background track */}
         <path
           d={`M ${stroke} ${cy} A ${radius} ${radius} 0 0 1 ${size - stroke} ${cy}`}
           fill="none"
@@ -35,7 +32,6 @@ export default function ScoreGauge({ score, large = false }: ScoreGaugeProps) {
           strokeWidth={stroke}
           strokeLinecap="round"
         />
-        {/* Score arc */}
         <path
           d={`M ${stroke} ${cy} A ${radius} ${radius} 0 0 1 ${size - stroke} ${cy}`}
           fill="none"
@@ -48,11 +44,17 @@ export default function ScoreGauge({ score, large = false }: ScoreGaugeProps) {
         />
       </svg>
 
-      <div className="score-gauge__center">
-        <span className="score-gauge__number" style={{ color }}>
+      <div className="flex flex-col items-center -mt-2">
+        <span
+          className={`font-extrabold leading-none tabular-nums ${large ? "text-[3rem]" : "text-[1.6rem]"}`}
+          style={{ color }}
+        >
           {score}
         </span>
-        <span className="score-gauge__label" style={{ color }}>
+        <span
+          className={`font-bold uppercase tracking-[0.08em] opacity-90 ${large ? "text-[0.85rem] mt-[0.4rem]" : "text-[0.7rem] mt-[0.2rem]"}`}
+          style={{ color }}
+        >
           {label}
         </span>
       </div>
