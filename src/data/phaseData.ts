@@ -50,6 +50,21 @@ export interface PhaseContext {
   footnote?: string;
 }
 
+export interface PreventionTool {
+  name: string;
+  category: string;
+  description: string;
+  free?: boolean;
+  badge?: string;
+}
+
+export interface PreventionSection {
+  slideTitle: string;
+  subtitle?: string;
+  tools: PreventionTool[];
+  actionTip: string;
+}
+
 export interface Phase {
   id: number;
   title: string;
@@ -59,6 +74,7 @@ export interface Phase {
   principles: Principle[];
   context?: PhaseContext;
   examples?: ExampleMessage[];
+  prevention?: PreventionSection;
   activity: Activity;
   summaryTakeaway: string;
   summaryAction: string;
@@ -133,6 +149,50 @@ export const phases: Phase[] = [
         redFlagIds: ["rf1", "rf3"],
       },
     ],
+    prevention: {
+      slideTitle: "How to Protect Yourself from Scams",
+      subtitle: "Free tools and habits that block the most common scam techniques.",
+      tools: [
+        {
+          name: "Go Direct — Never Click Links",
+          category: "Habit",
+          description: "Open your bank app or official website manually. If there's a real alert, it will show there too. This one habit blocks nearly all phishing attacks.",
+          badge: "Most Effective",
+        },
+        {
+          name: "VirusTotal (virustotal.com)",
+          category: "Website",
+          description: "Free link scanner. Paste any suspicious URL before clicking — it checks against 70+ security databases in seconds.",
+          free: true,
+        },
+        {
+          name: "Google Safe Browsing",
+          category: "Built-in",
+          description: "Automatically active in Chrome, Gmail, and Android. It warns you before you visit a known phishing or malware site.",
+          free: true,
+          badge: "Already Enabled",
+        },
+        {
+          name: "SMS Spam Filter (Android)",
+          category: "Setting",
+          description: "Google Messages: open the app → Settings → Spam protection → turn ON. Automatically filters suspicious messages into a spam folder.",
+          free: true,
+        },
+        {
+          name: "Report Scams: PNP-ACG",
+          category: "Report",
+          description: "Report cybercrime to the PNP Anti-Cybercrime Group at cybercrime.gov.ph or call 1800-1888-5600. Reports help protect others.",
+          free: true,
+        },
+        {
+          name: "Report Scams: DICT",
+          category: "Report",
+          description: "File a report at reportascam.dict.gov.ph — the Philippine government's official anti-scam reporting portal.",
+          free: true,
+        },
+      ],
+      actionTip: "Install VirusTotal's browser extension — it automatically flags dangerous links before you click them. Takes 30 seconds to set up.",
+    },
     activity: {
       question: "Look at this SMS carefully. Which red flag(s) do you see?",
       contextLabel: "Suspicious Message:",
@@ -288,42 +348,89 @@ export const phases: Phase[] = [
         why: "A lost or stolen phone without a screen lock gives a stranger instant access to GCash, banking apps, email, and all saved passwords.",
       },
     ],
+    prevention: {
+      slideTitle: "Your Digital Security Toolkit",
+      subtitle: "Free tools that do the heavy lifting so you don't have to think about it.",
+      tools: [
+        {
+          name: "Google Authenticator / Aegis",
+          category: "App",
+          description: "Free 2FA authenticator apps. Generate time-based one-time codes that are far more secure than SMS OTPs. Aegis (Android) is open-source and recommended.",
+          free: true,
+          badge: "Recommended",
+        },
+        {
+          name: "Microsoft Authenticator",
+          category: "App",
+          description: "Free 2FA app for iOS and Android. Supports push-notification approvals, making 2FA as easy as tapping a button.",
+          free: true,
+        },
+        {
+          name: "HaveIBeenPwned.com",
+          category: "Website",
+          description: "Enter your email to instantly see if it appeared in any known data breach. Free, trusted by security professionals worldwide.",
+          free: true,
+          badge: "Check Now",
+        },
+        {
+          name: "Google Security Checkup",
+          category: "Built-in",
+          description: "Visit myaccount.google.com/security-checkup — reviews your Gmail 2FA, connected apps, and suspicious activity in one place.",
+          free: true,
+          badge: "Already Available",
+        },
+        {
+          name: "ProtonVPN / Cloudflare WARP",
+          category: "App",
+          description: "Free VPN apps for safer browsing on public Wi-Fi. Cloudflare WARP is especially fast. Use either when you cannot switch to mobile data.",
+          free: true,
+        },
+        {
+          name: "Google Find My Device / Apple Find My",
+          category: "Built-in",
+          description: "Remotely locate, lock, or erase a lost or stolen phone. Enable now: Android at android.com/find · iPhone at icloud.com/find.",
+          free: true,
+          badge: "Enable Today",
+        },
+      ],
+      actionTip: "Check your email at HaveIBeenPwned.com right now. If it appears in a breach, change that password and enable 2FA immediately.",
+    },
     activity: {
       question:
-        "Your Facebook account was just hacked. What's the correct order of your first 3 actions?",
+        "Which set of actions gives you the strongest day-to-day protection for your accounts?",
       options: [
         {
           id: "b1",
-          text: "① Change password  →  ② Enable 2FA  →  ③ Check login activity",
+          text: "Enable a 2FA authenticator app + use mobile data (not public Wi-Fi) for banking + lock your phone with a PIN",
           correct: true,
           feedback:
-            "That's the right sequence. Change password first to immediately lock the hacker out. Then enable 2FA so they can't return even with a password. Finally, check login activity to see what was accessed and end all unknown sessions.",
+            "This is the trifecta. A 2FA authenticator app blocks account takeover even if your password is stolen. Avoiding public Wi-Fi removes network interception risk. A locked phone prevents physical access to your apps — all three work together.",
         },
         {
           id: "b2",
-          text: "① Post a warning to friends  →  ② Check messages  →  ③ Change password",
+          text: "Use a long password + check messages daily + update apps manually once a month",
           correct: false,
           feedback:
-            "Posting first while the hacker still has access doesn't help — they could even delete your warning. Your absolute first action is to change the password and lock them out immediately.",
+            "Good instincts, but monthly updates leave you exposed for weeks. Enable auto-updates so your device patches security vulnerabilities the same day they're released — not a month later.",
         },
         {
           id: "b3",
-          text: "① Delete the account  →  ② Create a new one  →  ③ Tell friends",
+          text: "Enable auto-updates only + rely on your bank's fraud detection to catch problems",
           correct: false,
           feedback:
-            "Deletion is too drastic — you lose everything and don't need to. The correct steps recover and secure the account: Change password → Enable 2FA → Check login activity.",
+            "Auto-updates are essential, but relying solely on fraud detection is passive defence. Banks may take days to detect suspicious activity. 2FA and a locked phone mean the attacker never gets in at all.",
         },
         {
           id: "b4",
-          text: "① Enable 2FA  →  ② Change password  →  ③ Check login activity",
+          text: "Use a VPN at all times + check HaveIBeenPwned monthly + use a 4-digit PIN",
           correct: false,
           feedback:
-            "Close, but order matters. Change password must come first — it immediately blocks the active hacker. Then 2FA prevents it happening again. Then review to understand the damage.",
+            "Checking HaveIBeenPwned is smart, but a 4-digit PIN offers far less protection than a 6-digit PIN or biometric lock. And while a VPN helps on public Wi-Fi, switching to mobile data for banking is simpler and equally safe.",
         },
       ],
       multiSelect: false,
       correctExplanation:
-        "The 3 steps after a hack: ① Change password (locks them out now). ② Enable 2FA (closes the door even if they have your password). ③ Check login activity (log out unknown sessions, see what was accessed).",
+        "The three highest-impact daily habits: (1) Use a 2FA authenticator app on key accounts. (2) Switch to mobile data when accessing banking or GCash — never public Wi-Fi. (3) Set a 6-digit PIN or biometric lock on your phone. These three actions block the most common attack vectors.",
     },
     context: {
       slideTitle: "Why Data Protection Matters: The Numbers",
@@ -406,6 +513,52 @@ export const phases: Phase[] = [
         why: "The only realistic way to have a unique strong password for every account is to let software manage them. Nobody can memorise 50 different passphrases — but you only need to memorise one.",
       },
     ],
+    prevention: {
+      slideTitle: "Password Tools & Resources",
+      subtitle: "You only need to remember one passphrase — let these tools handle the rest.",
+      tools: [
+        {
+          name: "Bitwarden",
+          category: "App",
+          description: "Free, open-source password manager. Generates and stores a unique strong password for every account. Works on all devices with a browser extension. Install at bitwarden.com.",
+          free: true,
+          badge: "Highly Recommended",
+        },
+        {
+          name: "Google Password Manager",
+          category: "Built-in",
+          description: "Built into Chrome and Android. Saves passwords automatically and warns you about reused or compromised ones. A great starting point if you use Google accounts.",
+          free: true,
+          badge: "Already Available",
+        },
+        {
+          name: "Apple Passwords App",
+          category: "Built-in",
+          description: "Built into iOS 18+ and macOS Sequoia. Stores passwords, passkeys, and Wi-Fi credentials. Alerts you if any saved passwords appear in known data breaches.",
+          free: true,
+          badge: "iOS / macOS",
+        },
+        {
+          name: "HaveIBeenPwned — Passwords",
+          category: "Website",
+          description: "Check if a specific password was exposed in a breach at haveibeenpwned.com/passwords. If it appears, never use it — attackers have it in their lists.",
+          free: true,
+        },
+        {
+          name: "Hive Systems Password Table",
+          category: "Website",
+          description: "Visual guide showing exactly how long passwords take to crack based on length and complexity. Visit hivesystems.com/password-table to see why length always wins.",
+          free: true,
+        },
+        {
+          name: "KeePassXC",
+          category: "App",
+          description: "Free, offline-only, open-source password manager. Stores your password database locally — nothing goes to the cloud. Best for privacy-first users.",
+          free: true,
+        },
+      ],
+      actionTip: "Install Bitwarden today and add your email and banking accounts first. Use the passphrase formula for your master password: [Word]-[Word]-[Word]-[Number][Symbol].",
+    },
     activity: {
       question:
         "Which of these passwords would take a computer the longest to crack?",

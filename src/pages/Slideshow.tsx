@@ -18,6 +18,7 @@ import {
   type Principle,
   type ExampleMessage,
   type ActivityOption,
+  type PreventionTool,
 } from "../data/phaseData";
 
 // ─── Slide type system ────────────────────────────────────────────────────────
@@ -27,6 +28,7 @@ type Slide =
   | { type: "context" }
   | { type: "principle"; index: number }
   | { type: "examples" }
+  | { type: "prevention" }
   | { type: "activity" }
   | { type: "takeaway" };
 
@@ -35,6 +37,7 @@ function buildSlides(phase: Phase): Slide[] {
   if (phase.context) slides.push({ type: "context" });
   phase.principles.forEach((_, i) => slides.push({ type: "principle", index: i }));
   if (phase.examples?.length) slides.push({ type: "examples" });
+  if (phase.prevention) slides.push({ type: "prevention" });
   slides.push({ type: "activity" });
   slides.push({ type: "takeaway" });
   return slides;
@@ -459,6 +462,97 @@ function ExamplesSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
   );
 }
 
+// ─── Slide: Prevention ────────────────────────────────────────────────────────
+
+function ToolCategoryBadge({ category }: { category: string }) {
+  const styles: Record<string, string> = {
+    Habit: "bg-violet-500/15 text-violet-300 border-violet-500/30",
+    App: "bg-sky-500/15 text-sky-300 border-sky-500/30",
+    Website: "bg-amber-500/15 text-amber-300 border-amber-500/30",
+    "Built-in": "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
+    Setting: "bg-indigo-500/15 text-indigo-300 border-indigo-500/30",
+    Report: "bg-rose-500/15 text-rose-300 border-rose-500/30",
+  };
+  const cls = styles[category] ?? "bg-slate-700 text-slate-400 border-slate-600";
+  return (
+    <span className={`text-[0.62rem] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full border ${cls}`}>
+      {category}
+    </span>
+  );
+}
+
+function PreventionSlide({ phase, dir }: { phase: Phase; dir: "fwd" | "back" }) {
+  const prevention = phase.prevention;
+  if (!prevention) return null;
+
+  const phaseColors = [
+    { accent: "text-rose-400", bg: "bg-rose-500/10", border: "border-rose-500/25" },
+    { accent: "text-sky-400",  bg: "bg-sky-500/10",  border: "border-sky-500/25"  },
+    { accent: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/25" },
+  ];
+  const color = phaseColors[phase.id - 1] ?? phaseColors[0];
+
+  return (
+    <SlideWrapper dir={dir} slideKey="prevention">
+      <div className="flex flex-col gap-5">
+        {/* Header */}
+        <div className="flex flex-col gap-1">
+          <span className={`text-[0.8rem] font-extrabold uppercase tracking-[0.2em] ${color.accent}`}>
+            Prevention &amp; Tools
+          </span>
+          <h2 className="text-[clamp(1.5rem,3.5vw,2.2rem)] font-extrabold text-slate-100 tracking-[-0.035em] leading-[1.1]">
+            {prevention.slideTitle}
+          </h2>
+          {prevention.subtitle && (
+            <p className="text-slate-400 text-[0.9rem] mt-1 max-w-[680px] leading-relaxed">
+              {prevention.subtitle}
+            </p>
+          )}
+        </div>
+
+        {/* Tools grid */}
+        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-2.5">
+          {prevention.tools.map((tool: PreventionTool, i: number) => (
+            <div
+              key={i}
+              className="flex flex-col gap-2 bg-slate-800/50 border border-white/[0.06] rounded-xl px-4 py-3 hover:border-white/[0.12] transition-colors"
+            >
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[0.92rem] font-bold text-slate-100">{tool.name}</span>
+                <ToolCategoryBadge category={tool.category} />
+                {tool.badge && (
+                  <span className={`text-[0.62rem] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full ${color.bg} ${color.accent} border ${color.border}`}>
+                    {tool.badge}
+                  </span>
+                )}
+                {tool.free === true && (
+                  <span className="text-[0.62rem] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full bg-green-500/15 text-green-300 border border-green-500/30">
+                    Free
+                  </span>
+                )}
+              </div>
+              <p className="text-[0.8rem] text-slate-400 leading-snug">{tool.description}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Action tip */}
+        <div className="bg-slate-800 border border-white/[0.07] rounded-2xl px-6 py-4 flex items-start gap-4">
+          <span className="text-2xl shrink-0">💡</span>
+          <div>
+            <p className="text-[0.68rem] font-extrabold uppercase tracking-[0.15em] text-indigo-400 mb-1">
+              Your Next Action
+            </p>
+            <p className="text-[0.95rem] text-slate-300 leading-relaxed">
+              {prevention.actionTip}
+            </p>
+          </div>
+        </div>
+      </div>
+    </SlideWrapper>
+  );
+}
+
 // ─── Slide: Activity ──────────────────────────────────────────────────────────
 
 function ActivitySlide({
@@ -842,6 +936,7 @@ export default function Slideshow({ onComplete }: SlideshowProps) {
       return p.title;
     }
     if (s.type === "examples") return "Real Examples";
+    if (s.type === "prevention") return "Prevention & Tools";
     if (s.type === "activity") return "Quiz";
     return "Takeaway";
   });
@@ -918,6 +1013,7 @@ export default function Slideshow({ onComplete }: SlideshowProps) {
         />
       );
     if (s.type === "examples") return <ExamplesSlide phase={p} dir={dir} />;
+    if (s.type === "prevention") return <PreventionSlide phase={p} dir={dir} />;
     if (s.type === "activity")
       return (
         <ActivitySlide
