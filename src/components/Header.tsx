@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { Shield, ArrowLeft, ArrowRight } from "lucide-react";
 
 interface HeaderProps {
   totalChecked: number;
@@ -20,7 +21,7 @@ export default function Header({ totalChecked, totalItems }: HeaderProps) {
           onClick={() => navigate("/")}
           aria-label="Go to home"
         >
-          <span className="text-[1.4rem]">🛡️</span>
+          <Shield size={22} className="text-indigo-400 shrink-0" />
           <span className="text-base font-bold text-slate-200 tracking-tight">Digital Safety Checkup</span>
         </button>
 
@@ -33,7 +34,7 @@ export default function Header({ totalChecked, totalItems }: HeaderProps) {
               className="btn btn-outline"
               onClick={() => navigate(isResults ? "/checklist" : "/results")}
             >
-              {isResults ? "← Back to Checklist" : "View Results →"}
+              {isResults ? <><ArrowLeft size={14} /> Back to Checklist</> : <>View Results <ArrowRight size={14} /></>}
             </button>
           </div>
         )}

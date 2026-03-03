@@ -1,4 +1,5 @@
 import type { ChecklistItem, Tip } from "../data/checklistData";
+import { Check, HelpCircle } from "lucide-react";
 
 const severityConfig: Record<string, { label: string; color: string }> = {
   critical: { label: "Critical", color: "#ef4444" },
@@ -36,7 +37,7 @@ export default function CheckItem({ item, checked, onToggle, onTipClick }: Check
         aria-checked={checked}
         role="checkbox"
       >
-        {checked && <span className="text-white text-[0.8rem] font-bold leading-none">✓</span>}
+        {checked && <Check size={13} strokeWidth={3} className="text-white" />}
       </div>
 
       {/* Content */}
@@ -69,7 +70,7 @@ export default function CheckItem({ item, checked, onToggle, onTipClick }: Check
         aria-label={`Learn more about: ${item.text}`}
         title="Learn more"
       >
-        <span>?</span>
+        <HelpCircle size={13} />
       </button>
     </div>
   );

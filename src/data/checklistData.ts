@@ -1,3 +1,15 @@
+import type { LucideIcon } from "lucide-react";
+import {
+  KeyRound,
+  ShieldCheck,
+  RefreshCw,
+  ShieldAlert,
+  Monitor,
+  EyeOff,
+  HardDrive,
+  Globe,
+} from "lucide-react";
+
 // ─── Domain types ────────────────────────────────────────────────────────────
 
 export type Severity = "critical" | "high" | "medium" | "low";
@@ -18,7 +30,7 @@ export interface ChecklistItem {
 export interface Category {
   id: string;
   title: string;
-  icon: string;
+  icon: LucideIcon;
   description: string;
   items: ChecklistItem[];
 }
@@ -34,7 +46,7 @@ export const categories: Category[] = [
   {
     id: "passwords",
     title: "Passwords & Authentication",
-    icon: "🔑",
+    icon: KeyRound,
     description: "Strong, unique passwords are your first line of defense.",
     items: [
       {
@@ -92,7 +104,7 @@ export const categories: Category[] = [
   {
     id: "2fa",
     title: "Two-Factor Authentication",
-    icon: "📱",
+    icon: ShieldCheck,
     description:
       "Add a second lock to your accounts so passwords alone aren't enough.",
     items: [
@@ -151,7 +163,7 @@ export const categories: Category[] = [
   {
     id: "updates",
     title: "Software & Device Updates",
-    icon: "🔄",
+    icon: RefreshCw,
     description:
       "Keeping software updated closes security holes before attackers exploit them.",
     items: [
@@ -200,7 +212,7 @@ export const categories: Category[] = [
   {
     id: "phishing",
     title: "Email & Phishing Awareness",
-    icon: "🎣",
+    icon: ShieldAlert,
     description:
       "Phishing is the #1 way attackers gain access — learn to spot it.",
     items: [
@@ -259,7 +271,7 @@ export const categories: Category[] = [
   {
     id: "device",
     title: "Device & Network Security",
-    icon: "💻",
+    icon: Monitor,
     description:
       "Secure your physical devices and network connections.",
     items: [
@@ -328,7 +340,7 @@ export const categories: Category[] = [
   {
     id: "privacy",
     title: "Social Media & Privacy",
-    icon: "🔒",
+    icon: EyeOff,
     description:
       "Control what you share and who can see it online.",
     items: [
@@ -377,7 +389,7 @@ export const categories: Category[] = [
   {
     id: "backups",
     title: "Data Backups",
-    icon: "💾",
+    icon: HardDrive,
     description:
       "Backups are your safety net against ransomware, hardware failure, and accidents.",
     items: [
@@ -426,7 +438,7 @@ export const categories: Category[] = [
   {
     id: "browsing",
     title: "Safe Browsing",
-    icon: "🌐",
+    icon: Globe,
     description:
       "Stay protected while using the internet.",
     items: [

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import { categories, totalItems } from "../data/checklistData";
 
 interface WelcomeProps {
@@ -27,7 +28,7 @@ export default function Welcome({ onReset }: WelcomeProps) {
         </p>
         <div className="flex gap-3 justify-center flex-wrap">
           <button className="btn btn-primary btn-lg" onClick={handleStart}>
-            Start My Checkup →
+            Start My Checkup <ArrowRight size={16} className="inline-block ml-1" />
           </button>
           <button
             className="btn btn-ghost btn-lg"
@@ -47,22 +48,25 @@ export default function Welcome({ onReset }: WelcomeProps) {
           What we cover
         </h2>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-3">
-          {categories.map((cat) => (
-            <div
-              key={cat.id}
-              className="flex items-center gap-3 bg-slate-800 border border-white/[0.07] rounded-xl px-4 py-[0.875rem] transition-colors hover:bg-slate-750 hover:border-white/[0.12]"
-            >
-              <span className="text-[1.4rem] shrink-0">{cat.icon}</span>
-              <div>
-                <div className="text-[0.85rem] font-semibold text-slate-300 leading-snug">
-                  {cat.title}
-                </div>
-                <div className="text-[0.75rem] text-slate-600 mt-[0.1rem]">
-                  {cat.items.length} checks
+          {categories.map((cat) => {
+            const Icon = cat.icon;
+            return (
+              <div
+                key={cat.id}
+                className="flex items-center gap-3 bg-slate-800 border border-white/[0.07] rounded-xl px-4 py-[0.875rem] transition-colors hover:bg-slate-750 hover:border-white/[0.12]"
+              >
+                <Icon size={22} className="shrink-0 text-indigo-400" />
+                <div>
+                  <div className="text-[0.85rem] font-semibold text-slate-300 leading-snug">
+                    {cat.title}
+                  </div>
+                  <div className="text-[0.75rem] text-slate-600 mt-[0.1rem]">
+                    {cat.items.length} checks
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 

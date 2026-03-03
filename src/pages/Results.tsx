@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import type { LucideIcon } from "lucide-react";
+import { ArrowLeft, Trophy } from "lucide-react";
 import type { ChecklistItem } from "../data/checklistData";
 import {
   categories,
@@ -14,7 +16,7 @@ interface ResultsProps {
 
 interface MissedItem extends ChecklistItem {
   categoryTitle: string;
-  categoryIcon: string;
+  categoryIcon: LucideIcon;
 }
 
 function getMissedItems(checkedIds: Set<string>): MissedItem[] {
@@ -69,7 +71,7 @@ export default function Results({ checkedIds, onReset }: ResultsProps) {
               className="btn btn-outline"
               onClick={() => navigate("/checklist")}
             >
-              ← Back to Checklist
+              <><ArrowLeft size={15} className="inline-block mr-1" /> Back to Checklist</>
             </button>
             <button
               className="btn btn-ghost"
@@ -94,10 +96,11 @@ export default function Results({ checkedIds, onReset }: ResultsProps) {
             const done = cat.items.filter((i) => checkedIds.has(i.id)).length;
             const total = cat.items.length;
             const pct = Math.round((done / total) * 100);
+            const CatIcon = cat.icon;
             return (
               <div key={cat.id} className="bg-slate-800 border border-white/[0.07] rounded-xl px-[1.125rem] py-4">
                 <div className="flex items-center gap-[0.6rem] mb-[0.6rem]">
-                  <span className="text-[1.1rem]">{cat.icon}</span>
+                  <CatIcon size={16} className="shrink-0" />
                   <span className="flex-1 text-[0.875rem] font-semibold text-slate-300">{cat.title}</span>
                   <span
                     className={`text-[0.8rem] font-bold tabular-nums ${pct === 100 ? "text-green-400" : "text-slate-500"}`}
@@ -137,11 +140,12 @@ export default function Results({ checkedIds, onReset }: ResultsProps) {
           <div className="flex flex-col gap-4">
             {missed.map((item) => {
               const sev = severityBadge[item.severity];
+              const ItemCatIcon = item.categoryIcon;
               return (
                 <div key={item.id} className="bg-slate-800 border border-white/[0.07] rounded-[0.875rem] p-5">
                   <div className="flex items-center justify-between gap-3 mb-[0.625rem]">
                     <span className="text-[0.75rem] text-slate-500">
-                      {item.categoryIcon} {item.categoryTitle}
+                      <ItemCatIcon size={13} className="inline-block mr-1" />{item.categoryTitle}
                     </span>
                     <span
                       className="text-[0.68rem] font-bold uppercase tracking-[0.07em] px-[0.55rem] py-[0.2rem] rounded-full"
@@ -175,7 +179,7 @@ export default function Results({ checkedIds, onReset }: ResultsProps) {
       {/* All done state */}
       {missed.length === 0 && (
         <section className="text-center py-12 px-8 bg-green-500/[0.06] border border-green-500/20 rounded-2xl">
-          <div className="text-[3rem] mb-3">🏆</div>
+          <Trophy size={44} className="text-yellow-400 mx-auto mb-3" />
           <h2 className="text-[1.4rem] font-extrabold text-green-400 mb-2">Perfect Score!</h2>
           <p className="text-slate-500 text-[0.9rem] leading-relaxed">
             You've completed every check. Your digital security posture is
@@ -190,7 +194,7 @@ export default function Results({ checkedIds, onReset }: ResultsProps) {
           className="btn btn-primary btn-lg"
           onClick={() => navigate("/checklist")}
         >
-          ← Continue Checklist
+          <><ArrowLeft size={15} className="inline-block mr-1" /> Continue Checklist</>
         </button>
       </div>
     </main>

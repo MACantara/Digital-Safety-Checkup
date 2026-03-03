@@ -1,4 +1,5 @@
 import type { Tip } from "../data/checklistData";
+import { X, Lightbulb } from "lucide-react";
 
 interface TipPanelProps {
   tip: Tip | null;
@@ -26,9 +27,9 @@ export default function TipPanel({ tip, onClose }: TipPanelProps) {
           onClick={onClose}
           aria-label="Close tip"
         >
-          ✕
+          <X size={14} />
         </button>
-        <div className="text-[2rem] mb-3">💡</div>
+        <Lightbulb size={30} className="text-indigo-400 mb-3" />
         <h3 className="text-[1.1rem] font-bold text-slate-200 mb-3 leading-[1.3]">{tip.title}</h3>
         <p className="text-slate-400 text-[0.9rem] leading-relaxed mb-4">{tip.body}</p>
         {tip.action && (

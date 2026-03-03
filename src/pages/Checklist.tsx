@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Check, ArrowLeft, ArrowRight } from "lucide-react";
 import type { Tip } from "../data/checklistData";
 import { categories, calculateScore, totalItems } from "../data/checklistData";
 import CheckItem from "../components/CheckItem";
@@ -24,6 +25,10 @@ export default function Checklist({ checkedIds, onToggle }: ChecklistProps) {
   const isFirst = activeTab === 0;
   const isLast = activeTab === categories.length - 1;
 
+  const CategoryIcon = category.icon;
+  const NextCatIcon = isLast ? null : categories[activeTab + 1].icon;
+  const nextCatTitle = isLast ? "" : categories[activeTab + 1].title;
+
   const goNext = () => (isLast ? navigate("/results") : setActiveTab((t) => t + 1));
   const goPrev = () => setActiveTab((t) => t - 1);
 
@@ -44,6 +49,7 @@ export default function Checklist({ checkedIds, onToggle }: ChecklistProps) {
             const done = cat.items.filter((item) => checkedIds.has(item.id)).length;
             const complete = done === cat.items.length;
             const active = i === activeTab;
+            const TabIcon = cat.icon;
             return (
               <button
                 key={cat.id}
@@ -62,11 +68,11 @@ export default function Checklist({ checkedIds, onToggle }: ChecklistProps) {
                 {active && (
                   <span className="tab-active-indicator max-md:top-auto max-md:bottom-0 max-md:left-[6px] max-md:right-[6px] max-md:w-auto max-md:h-[2px] max-md:rounded-[2px_2px_0_0]" />
                 )}
-                <span className="text-base max-md:text-[1.25rem]">{cat.icon}</span>
+                <TabIcon size={18} className="shrink-0" />
                 <span className="flex-1 min-w-0">{cat.title}</span>
                 {complete && (
                   <span className="text-[0.65rem] font-extrabold text-green-400 shrink-0 max-md:absolute max-md:top-1 max-md:right-[6px] max-md:text-[0.55rem]" aria-label="Complete">
-                    ✓
+                  <Check size={10} strokeWidth={3} />
                   </span>
                 )}
               </button>
@@ -95,7 +101,7 @@ export default function Checklist({ checkedIds, onToggle }: ChecklistProps) {
           {/* Category header */}
           <header className="flex flex-col gap-[0.875rem]">
             <div className="flex items-center gap-[0.875rem]">
-              <span className="text-[2.25rem] shrink-0 leading-none">{category.icon}</span>
+              <CategoryIcon size={36} className="text-slate-300 shrink-0" />
               <div className="flex-1 min-w-0">
                 <div className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-indigo-500 mb-[0.2rem]">
                   Category {activeTab + 1} of {categories.length}
@@ -143,12 +149,12 @@ export default function Checklist({ checkedIds, onToggle }: ChecklistProps) {
               disabled={isFirst}
               style={{ opacity: isFirst ? 0.3 : undefined, cursor: isFirst ? "not-allowed" : undefined, pointerEvents: isFirst ? "none" : undefined }}
             >
-              ← Previous
+              <><ArrowLeft size={15} className="inline-block mr-1" /> Previous</>
             </button>
             <button className="btn btn-primary btn-lg max-md:flex-1 max-md:text-[0.82rem]" onClick={goNext}>
               {isLast
-                ? "View My Results →"
-                : `Next: ${categories[activeTab + 1].icon} ${categories[activeTab + 1].title} →`}
+                ? <>View My Results <ArrowRight size={15} className="inline-block ml-1" /></>
+                : <>{NextCatIcon && <><span>Next:</span> <NextCatIcon size={14} className="inline-block" /></>} {nextCatTitle} <ArrowRight size={15} className="inline-block ml-1" /></>}
             </button>
           </div>
         </main>

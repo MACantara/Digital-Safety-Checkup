@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import type { Category, Tip } from "../data/checklistData";
 import CheckItem from "./CheckItem";
 
@@ -15,6 +16,7 @@ export default function CategoryCard({ category, checkedIds, onToggle, onTipClic
   const total = category.items.length;
   const done = category.items.filter((i) => checkedIds.has(i.id)).length;
   const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+  const CategoryIcon = category.icon;
 
   return (
     <section className="bg-slate-800 border border-white/[0.08] rounded-2xl overflow-hidden transition-colors hover:border-white/[0.12]">
@@ -24,7 +26,7 @@ export default function CategoryCard({ category, checkedIds, onToggle, onTipClic
         aria-expanded={!collapsed}
       >
         <div className="flex items-start gap-3">
-          <span className="text-2xl shrink-0 leading-none mt-[0.1rem]">{category.icon}</span>
+          <CategoryIcon size={22} className="text-slate-300 shrink-0 mt-[0.1rem]" />
           <div className="flex-1">
             <h2 className="text-base font-bold text-slate-200 mb-[0.2rem]">{category.title}</h2>
             <p className="text-[0.8rem] text-slate-500 leading-snug">{category.description}</p>
@@ -40,12 +42,11 @@ export default function CategoryCard({ category, checkedIds, onToggle, onTipClic
           >
             {done}/{total}
           </span>
-          <span
-            className="text-slate-500 text-[1.1rem] transition-transform duration-200"
-            style={{ display: "inline-block", transform: collapsed ? "rotate(-90deg)" : "rotate(0deg)" }}
-          >
-            ▾
-          </span>
+          <ChevronDown
+            size={18}
+            className="text-slate-500 shrink-0 transition-transform duration-200"
+            style={{ transform: collapsed ? "rotate(-90deg)" : "rotate(0deg)" }}
+          />
         </div>
       </button>
 
