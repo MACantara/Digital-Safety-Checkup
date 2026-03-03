@@ -12,7 +12,7 @@ export const categories = [
         tip: {
           title: "Why unique passwords matter",
           body: "If one site is breached and you reuse passwords, attackers can access all your other accounts using a technique called 'credential stuffing'. Use a password manager — it does the heavy lifting for you.",
-          action: "Recommended managers: Bitwarden (free), 1Password, Dashlane.",
+          action: "Recommended managers: Bitwarden, Proton Pass.",
         },
       },
       {
@@ -32,7 +32,7 @@ export const categories = [
         tip: {
           title: "Let a password manager do the work",
           body: "A password manager securely stores and auto-fills complex passwords so you don't have to remember them all. It's the single biggest upgrade you can make to your security.",
-          action: "Try Bitwarden (free & open-source) or 1Password.",
+          action: "Try Bitwarden (free & open-source) or Proton Pass.",
         },
       },
       {
