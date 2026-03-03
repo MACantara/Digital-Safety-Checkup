@@ -44,7 +44,7 @@ export default function Header({ completedPhases }: HeaderProps) {
               return (
                 <button
                   key={phase.id}
-                  onClick={() => navigate(`/phase/${phase.id}/learn`)}
+                  onClick={() => navigate(`/phase/${phase.id}`)}
                   className={[
                     "flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-[0.72rem] font-semibold transition-colors bg-transparent cursor-pointer font-[inherit]",
                     active

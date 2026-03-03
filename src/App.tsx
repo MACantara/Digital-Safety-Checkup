@@ -2,8 +2,7 @@ import { useState, useCallback } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Welcome from "./pages/Welcome";
-import PhaseLearn from "./pages/PhaseLearn";
-import PhaseActivity from "./pages/PhaseActivity";
+import Slideshow from "./pages/Slideshow";
 import Summary from "./pages/Summary";
 
 const STORAGE_KEY = "dsc-completed-phases";
@@ -49,11 +48,14 @@ function AppContent() {
           path="/"
           element={<Welcome completedPhases={completedPhases} onReset={handleReset} />}
         />
-        <Route path="/phase/:phaseId/learn" element={<PhaseLearn />} />
+        {/* Unified slideshow — covers learn + activity for a phase */}
         <Route
-          path="/phase/:phaseId/activity"
-          element={<PhaseActivity onComplete={handleComplete} />}
+          path="/phase/:phaseId"
+          element={<Slideshow onComplete={handleComplete} />}
         />
+        {/* Legacy redirects for any old bookmarks */}
+        <Route path="/phase/:phaseId/learn" element={<Navigate to="/phase/:phaseId" replace />} />
+        <Route path="/phase/:phaseId/activity" element={<Navigate to="/phase/:phaseId" replace />} />
         <Route
           path="/summary"
           element={<Summary completedPhases={completedPhases} onReset={handleReset} />}

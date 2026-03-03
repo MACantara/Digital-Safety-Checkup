@@ -12,11 +12,11 @@ export default function Welcome({ completedPhases, onReset }: WelcomeProps) {
   const hasProgress = completedPhases.size > 0;
   const allDone = completedPhases.size === phases.length;
 
-  const handleStart = () => navigate("/phase/1/learn");
+  const handleStart = () => navigate("/phase/1");
 
   const handleResume = () => {
     const nextPhase = phases.find((p) => !completedPhases.has(p.id));
-    if (nextPhase) navigate(`/phase/${nextPhase.id}/learn`);
+    if (nextPhase) navigate(`/phase/${nextPhase.id}`);
     else navigate("/summary");
   };
 
@@ -82,7 +82,7 @@ export default function Welcome({ completedPhases, onReset }: WelcomeProps) {
                     ? "border-indigo-500/30 bg-indigo-500/6 hover:bg-indigo-500/10"
                     : "border-white/[0.07] bg-slate-800 hover:border-white/[0.12] hover:bg-slate-750"
                 }`}
-                onClick={() => navigate(`/phase/${phase.id}/learn`)}
+                onClick={() => navigate(`/phase/${phase.id}`)}
               >
                 <div className="flex items-center justify-between">
                   <Icon

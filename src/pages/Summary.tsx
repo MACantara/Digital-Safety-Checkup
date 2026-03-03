@@ -155,7 +155,7 @@ export default function Summary({ completedPhases, onReset }: SummaryProps) {
             className="btn btn-primary btn-lg"
             onClick={() => {
               const nextPhase = phases.find((p) => !completedPhases.has(p.id));
-              if (nextPhase) navigate(`/phase/${nextPhase.id}/learn`);
+              if (nextPhase) navigate(`/phase/${nextPhase.id}`);
             }}
           >
             Continue Where You Left Off <ArrowRight size={15} className="inline-block ml-1" />
@@ -172,7 +172,7 @@ export default function Summary({ completedPhases, onReset }: SummaryProps) {
         </button>
         <button
           className="btn btn-outline"
-          onClick={() => navigate("/phase/1/learn")}
+          onClick={() => navigate("/phase/1")}
         >
           Review Phase 1
         </button>
