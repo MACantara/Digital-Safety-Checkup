@@ -1,16 +1,7 @@
 import type { LucideIcon } from "lucide-react";
-import {
-  KeyRound,
-  ShieldCheck,
-  RefreshCw,
-  ShieldAlert,
-  Monitor,
-  EyeOff,
-  HardDrive,
-  Globe,
-} from "lucide-react";
+import { ShieldAlert, ShieldCheck, KeyRound } from "lucide-react";
 
-// ─── Domain types ────────────────────────────────────────────────────────────
+// â”€â”€â”€ Domain types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export type Severity = "critical" | "high" | "medium" | "low";
 
@@ -40,456 +31,220 @@ export interface ScoreLabel {
   color: string;
 }
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const categories: Category[] = [
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // Phase 1 â€” Scam Awareness (5 min)
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
-    id: "passwords",
-    title: "Passwords & Authentication",
-    icon: KeyRound,
-    description: "Strong, unique passwords are your first line of defense.",
-    items: [
-      {
-        id: "p1",
-        text: "I use a unique password for every account",
-        severity: "critical",
-        tip: {
-          title: "Why unique passwords matter",
-          body: "If one site is breached and you reuse passwords, attackers can access all your other accounts using a technique called 'credential stuffing'. Use a password manager — it does the heavy lifting for you.",
-          action: "Recommended managers: Bitwarden, Proton Pass.",
-        },
-      },
-      {
-        id: "p2",
-        text: "All my passwords are at least 16 characters long",
-        severity: "critical",
-        tip: {
-          title: "Password length beats complexity",
-          body: "A 16-character random passphrase is exponentially harder to crack than an 8-character 'complex' password. Modern attacks can crack short passwords in seconds.",
-          action: "Aim for 16+ characters. Passphrases like 'correct-horse-battery-staple' work great.",
-        },
-      },
-      {
-        id: "p3",
-        text: "I use a password manager",
-        severity: "high",
-        tip: {
-          title: "Let a password manager do the work",
-          body: "A password manager securely stores and auto-fills complex passwords so you don't have to remember them all. It's the single biggest upgrade you can make to your security.",
-          action: "Try Bitwarden (free & open-source) or Proton Pass.",
-        },
-      },
-      {
-        id: "p4",
-        text: "I have checked my email/passwords against known breaches",
-        severity: "medium",
-        tip: {
-          title: "See if you've been breached",
-          body: "Services like 'Have I Been Pwned' let you check if your email or passwords have appeared in known data breaches. Many breaches go unnoticed for years.",
-          action: "Visit haveibeenpwned.com and check your email addresses.",
-        },
-      },
-      {
-        id: "p5",
-        text: "I have changed passwords that were exposed in breaches",
-        severity: "critical",
-        tip: {
-          title: "Exposed passwords are compromised passwords",
-          body: "Once a password appears in a breach database, attackers use automated tools to try it across thousands of sites. Change exposed passwords immediately.",
-          action: "Check haveibeenpwned.com → Passwords to see if specific passwords were leaked.",
-        },
-      },
-    ],
-  },
-  {
-    id: "2fa",
-    title: "Two-Factor Authentication",
-    icon: ShieldCheck,
-    description:
-      "Add a second lock to your accounts so passwords alone aren't enough.",
-    items: [
-      {
-        id: "2fa1",
-        text: "I use 2FA on my email account(s)",
-        severity: "critical",
-        tip: {
-          title: "Your email is the master key",
-          body: "Most accounts can be recovered via email. If an attacker gains access to your email, they can reset passwords for your bank, social media, and more. Protect it with 2FA.",
-          action: "Enable 2FA in your email's security settings. Prefer an authenticator app over SMS.",
-        },
-      },
-      {
-        id: "2fa2",
-        text: "I use 2FA on my bank and financial accounts",
-        severity: "critical",
-        tip: {
-          title: "Protect your money directly",
-          body: "Financial accounts are high-value targets. Even if an attacker obtains your password, 2FA stops them from completing a login without your second factor.",
-          action: "Log into each bank or financial app and enable 2FA under Security settings.",
-        },
-      },
-      {
-        id: "2fa3",
-        text: "I use an authenticator app (not SMS) for 2FA where possible",
-        severity: "high",
-        tip: {
-          title: "Authenticator apps > SMS codes",
-          body: "SMS-based 2FA can be bypassed via SIM-swapping attacks where criminals convince your carrier to transfer your phone number to their device. Authenticator apps like Aegis or Google Authenticator are immune to this.",
-          action: "Use Aegis (Android), Raivo (iOS), or Google/Microsoft Authenticator.",
-        },
-      },
-      {
-        id: "2fa4",
-        text: "I have saved 2FA backup codes in a secure place",
-        severity: "high",
-        tip: {
-          title: "Don't get locked out",
-          body: "If you lose your phone or authenticator app, backup codes are your only way back in. Store them offline in a safe place — not in your email or on your desktop.",
-          action: "Print or write down backup codes and store them in a safe or secure location.",
-        },
-      },
-      {
-        id: "2fa5",
-        text: "I use 2FA on major social media accounts",
-        severity: "medium",
-        tip: {
-          title: "Account takeovers happen at scale",
-          body: "Social media account hijacking is common. Attackers use them to scam your contacts, spread misinformation, or sell the account. 2FA makes this significantly harder.",
-          action: "Enable 2FA in the security settings of Facebook, Instagram, Twitter/X, LinkedIn, etc.",
-        },
-      },
-    ],
-  },
-  {
-    id: "updates",
-    title: "Software & Device Updates",
-    icon: RefreshCw,
-    description:
-      "Keeping software updated closes security holes before attackers exploit them.",
-    items: [
-      {
-        id: "u1",
-        text: "My operating system is set to install updates automatically",
-        severity: "critical",
-        tip: {
-          title: "Unpatched systems are easy targets",
-          body: "Security vulnerabilities are discovered regularly. OS vendors release patches, but attackers quickly weaponize newly disclosed flaws. Automatic updates ensure you're protected.",
-          action: "Windows: Settings → Windows Update → Turn on automatic updates. macOS: System Settings → General → Software Update.",
-        },
-      },
-      {
-        id: "u2",
-        text: "All my apps and browsers are up to date",
-        severity: "high",
-        tip: {
-          title: "Apps are attack surface too",
-          body: "Vulnerabilities in browsers and apps are frequently exploited. Browser exploits can install malware just by visiting a page. Keep everything updated.",
-          action: "Enable auto-updates in your browser and regularly check your app store for pending updates.",
-        },
-      },
-      {
-        id: "u3",
-        text: "My phone/tablet firmware and OS are up to date",
-        severity: "high",
-        tip: {
-          title: "Mobile devices need updates too",
-          body: "Phones contain your messages, photos, banking apps, and location history. Mobile OS updates patch critical security flaws that attackers actively exploit.",
-          action: "iOS: Settings → General → Software Update. Android: Settings → System → System Update.",
-        },
-      },
-      {
-        id: "u4",
-        text: "I have removed software and apps I no longer use",
-        severity: "medium",
-        tip: {
-          title: "Unused software is a silent risk",
-          body: "Forgotten apps stop receiving updates and accumulate vulnerabilities over time. They also may still have permissions to your data, microphone, or camera.",
-          action: "Audit your installed programs and apps. Remove anything you haven't used in 3+ months.",
-        },
-      },
-    ],
-  },
-  {
-    id: "phishing",
-    title: "Email & Phishing Awareness",
+    id: "scams",
+    title: "Scam Awareness",
     icon: ShieldAlert,
-    description:
-      "Phishing is the #1 way attackers gain access — learn to spot it.",
+    description: "Know 4 red flags and youâ€™ll spot 90% of scams before they trick you.",
     items: [
       {
-        id: "ph1",
-        text: "I verify sender addresses before clicking links in emails",
+        id: "s1",
+        text: "I can recognise urgency-based scams (â€œAct now or your account will be lockedâ€)",
         severity: "critical",
         tip: {
-          title: "Spoofed addresses look real at a glance",
-          body: "Phishing emails often mimick legitimate senders. Always check the full email address (not just the display name). 'Amazon Support <support@amaz0n-helpdesk.com>' is not real.",
-          action: "Hover (don't click) over links to preview the destination URL. When in doubt, go directly to the website.",
+          title: "Urgency is the scammerâ€™s #1 weapon",
+          body: "Scammers manufacture panic so you act before thinking. Legitimate banks, government agencies, and apps never demand immediate action over SMS or email. The rush itself is the red flag.",
+          action: "Next time a message makes you feel rushed â€” pause for 10 seconds and ask: â€œDid I initiate this contact?â€ If not, treat it as a scam until proven otherwise.",
         },
       },
       {
-        id: "ph2",
-        text: "I never enter credentials after clicking an email link",
+        id: "s2",
+        text: "I can spot emotional manipulation â€” fear, unexpected prizes, or sudden romance from strangers",
         severity: "critical",
         tip: {
-          title: "Phishing sites are convincing",
-          body: "Attackers create pixel-perfect copies of login pages. Always navigate to sites directly via your browser or bookmarks rather than through email links.",
-          action: "If you get a 'verify your account' email, close it and manually navigate to the site.",
+          title: "They target your emotions, not your logic",
+          body: "Fear (â€œYour account is compromisedâ€), greed (â€œYouâ€™ve won 50,000 pesos!â€), and romance scams all work by bypassing rational thinking. If a message makes your heart race â€” that racing feeling is the warning sign.",
+          action: "Ask yourself: â€œWhy is a stranger so eager to help me or give me something?â€ Real windfalls and real romances donâ€™t begin with an unsolicited message.",
         },
       },
       {
-        id: "ph3",
-        text: "I am cautious of unexpected attachments (even from known people)",
+        id: "s3",
+        text: "I check links and sender domains before clicking (e.g. â€œamaz0n-support.comâ€ is fake; â€œamazon.comâ€ is real)",
+        severity: "critical",
+        tip: {
+          title: "The domain is the truth â€” check it every time",
+          body: "Scammers misspell or extend real brands: paypa1.com, bdo-verify-ph.net, gcash-support.xyz. On mobile, press and hold a link to preview its real destination. On desktop, hover before you click. The real site is always the shortest, cleanest version of the name.",
+          action: "Before clicking any link in a message: ask â€œIs this the exact official domain?â€ When in doubt, open your browser and type the address manually.",
+        },
+      },
+      {
+        id: "s4",
+        text: "I never share OTPs, passwords, or personal info â€” even with people claiming to be from customer support",
+        severity: "critical",
+        tip: {
+          title: "No legitimate company will ever ask for your OTP",
+          body: "One-Time Passwords exist so only you can use them. The moment anyone asks for yours â€” over a call, chat, or message â€” they are a scammer. No exceptions. Banks, GCash, Grab, and all legitimate services know this rule and never break it.",
+          action: "If anyone asks for your OTP or password: hang up or end the chat immediately. Then change your password and report the number or account.",
+        },
+      },
+      {
+        id: "s5",
+        text: "I can spot a fake SMS: unknown sender, suspicious link, urgency or prize",
         severity: "high",
         tip: {
-          title: "Malicious attachments bypass many defenses",
-          body: "Email accounts get compromised and used to send malware to contacts. Even if you recognize the sender, an unexpected attachment with urgency is a red flag.",
-          action: "Verify unexpected attachments by calling or messaging the sender through a separate channel.",
+          title: "Smishing (SMS phishing) â€” example to study",
+          body: 'Fake SMS: â€œBDO ALERT: Unauthorized login detected. Verify immediately or account will be suspended: bdo-secure-ph.net/verifyâ€\n\nRed flags: (1) You didnâ€™t expect it. (2) Thereâ€™s an external link â€” real banks never send links, they tell you to open the app. (3) Urgency + threat of loss.',
+          action: "Look at your last 3 messages from unknown numbers. Can you find: an external link, urgency language, or a request for personal info? Those are the 3 signs.",
         },
       },
       {
-        id: "ph4",
-        text: "I know how to identify phishing red flags (urgency, threats, odd links)",
+        id: "s6",
+        text: "I can identify a phishing email: mismatched sender address, generic greeting, suspicious link",
         severity: "high",
         tip: {
-          title: "Common phishing patterns",
-          body: "Watch for: urgent language ('Act now!'), threats ('Your account will be closed'), requests for personal data, suspicious links, and poor grammar. Legitimate organizations don't pressure you this way.",
-          action: "Take a free phishing awareness quiz at phishingquiz.withgoogle.com to test your skills.",
+          title: "Phishing emails â€” 3 things to check",
+          body: '(1) Sender address: â€œsupport@paypal-helpdesk.comâ€ is NOT PayPal. The real sender ends in @paypal.com exactly.\n(2) Greeting: â€œDear Customerâ€ instead of your actual name â€” they donâ€™t know who you are.\n(3) Hover the link (donâ€™t click): the real destination shows in your browserâ€™s status bar and rarely matches the button text.',
+          action: "Open your spam folder and find one suspicious email. Identify which of the 3 red flags it has. That practice makes detection automatic.",
         },
       },
       {
-        id: "ph5",
-        text: "I report suspicious emails rather than just deleting them",
-        severity: "low",
+        id: "s7",
+        text: "I can recognise fake social media DMs: unsolicited offers, account â€˜verificationâ€™ requests, or friends asking for money",
+        severity: "medium",
         tip: {
-          title: "Reporting helps protect others",
-          body: "Reporting phishing emails helps your email provider improve filters, potentially protecting your colleagues and other users from the same attack.",
-          action: "Most email clients have a 'Report phishing' or 'Report spam' option. Use it.",
+          title: "Social media DM scams â€” 3 common scripts",
+          body: '(1) â€œYour Page violates our policies and will be disabled. Click here to appeal.â€ â€” Facebook will never DM you.\n(2) â€œI can help you earn money, just send a small registration fee.â€\n(3) A â€œfriendâ€ messages asking to borrow money or share a code â€” their account is hacked.',
+          action: "If a friend sends an unusual DM asking for money or a code, call them directly by voice before doing anything. One call stops the scam.",
         },
       },
     ],
   },
+
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // Phase 2 â€” Data Protection Basics (5 min)
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
-    id: "device",
-    title: "Device & Network Security",
-    icon: Monitor,
-    description:
-      "Secure your physical devices and network connections.",
+    id: "protection",
+    title: "Data Protection Basics",
+    icon: ShieldCheck,
+    description: "5 behaviours that protect your accounts and devices â€” practical steps, not theory.",
     items: [
       {
         id: "d1",
-        text: "All my devices have a screen lock (PIN, biometric, or password)",
+        text: "I donâ€™t click unknown links in messages, emails, or social media",
         severity: "critical",
         tip: {
-          title: "Physical access = full access",
-          body: "Without a screen lock, anyone who finds or steals your device has instant access to your emails, banking apps, photos, and more. A PIN or biometric lock is a must.",
-          action: "Set a 6+ digit PIN or enable fingerprint/face unlock, and set a short auto-lock timeout (e.g., 1 minute).",
+          title: "One wrong click is all it takes",
+          body: "Malicious links can install malware, steal your cookies, or dump you on a fake login page â€” all silently. The habit is simple: if you didnâ€™t ask for it, donâ€™t click it. Go directly to the website instead.",
+          action: "Set a personal rule right now: â€œI will never click a link from an unexpected message.â€ Even from a friend. Even if it looks real.",
         },
       },
       {
         id: "d2",
-        text: "My computer's hard drive is encrypted",
+        text: "I avoid logging into banking, GCash, or email accounts on public Wi-Fi",
         severity: "high",
         tip: {
-          title: "Encryption protects stolen devices",
-          body: "Without disk encryption, a thief can remove your hard drive and access all your data. Encryption makes the data unreadable without your password.",
-          action: "Windows: Enable BitLocker (Pro/Enterprise) or use VeraCrypt. macOS: Enable FileVault in System Settings → Privacy & Security.",
+          title: "Public Wi-Fi can be monitored or faked",
+          body: "Attackers set up hotspots named â€œMall_Free_WiFiâ€ or â€œCafe_Guestâ€ that look legitimate. Even on real public networks, unencrypted traffic can be intercepted. Browsing news is fine â€” logging into anything sensitive is not.",
+          action: "On public Wi-Fi: browse freely, but switch to mobile data for banking, GCash, or email logins. Itâ€™s a 3-second habit that protects everything.",
         },
       },
       {
         id: "d3",
-        text: "I avoid using public Wi-Fi for sensitive tasks, or use a VPN",
+        text: "Automatic updates are turned on for my phone and computer",
         severity: "high",
         tip: {
-          title: "Public Wi-Fi can be monitored",
-          body: "Public networks can be compromised or faked by attackers (evil twin attacks). Avoid banking or entering passwords on public Wi-Fi. A VPN encrypts your traffic.",
-          action: "Use a reputable VPN (Mullvad, ProtonVPN) on public networks. At minimum, ensure sites use HTTPS.",
+          title: "Updates patch the holes hackers walk through",
+          body: "Every software vulnerability is a potential doorway for attackers. When a patch is released, hackers immediately start targeting all unpatched devices. Automatic updates close that window before you even know one existed.",
+          action: "iOS: Settings â†’ General â†’ Software Update â†’ Automatic Updates ON.\nAndroid: Settings â†’ System â†’ System Update.\nDo it now â€” takes under a minute.",
         },
       },
       {
         id: "d4",
-        text: "My home Wi-Fi router uses WPA2 or WPA3 encryption",
-        severity: "high",
+        text: "I have 2FA (two-factor authentication) enabled on my email and main social media accounts",
+        severity: "critical",
         tip: {
-          title: "WEP and open networks are unsafe",
-          body: "Older encryption standards (WEP) are trivially crackable. WPA2 and WPA3 provide strong protection for your home network.",
-          action: "Log into your router admin panel and check the wireless security settings. Set to WPA2-AES or WPA3.",
+          title: "2FA stops account takeovers even when your password is stolen",
+          body: "With 2FA on, even if someone has your password they still canâ€™t log in without your phone. Your email is the master key â€” whoever controls it can reset every other account you own. Protect it first.",
+          action: "Go to your emailâ€™s Security Settings right now and enable 2-Step Verification. An authenticator app (Google Authenticator, Aegis) is stronger than SMS. Takes under 2 minutes.",
         },
       },
       {
         id: "d5",
-        text: "I have changed my router's default admin password",
+        text: "My phone has a screen lock (PIN of at least 6 digits, pattern, or biometric)",
         severity: "high",
         tip: {
-          title: "Default passwords are public knowledge",
-          body: "Default router credentials ('admin/admin', 'admin/password') are published online. Anyone on your network — or with physical access — can take control of your router.",
-          action: "Access your router's admin panel (usually 192.168.1.1) and change the admin password to something strong and unique.",
+          title: "Your unlocked phone is a treasure chest",
+          body: "A lost phone without a lock gives a stranger instant access to GCash, banking apps, your email, and every saved password in your browser. A 6-digit PIN takes 5 seconds to set and protects everything.",
+          action: "Settings â†’ Security â†’ Screen Lock. Set a PIN of at least 6 digits, or enable fingerprint/face unlock. Do it before you close this app.",
         },
       },
       {
         id: "d6",
-        text: "I have a firewall enabled on my computer",
+        text: "I know the 3 immediate steps to take if one of my accounts gets hacked",
         severity: "medium",
         tip: {
-          title: "Firewalls block unsolicited connections",
-          body: "A firewall monitors incoming and outgoing network traffic and blocks suspicious connections. Most OS firewalls are sufficient for home use — just make sure they're on.",
-          action: "Windows: Settings → Windows Security → Firewall & network protection. macOS: System Settings → Network → Firewall.",
+          title: "The first 5 minutes after a hack determine the damage",
+          body: "Step 1: Change your password immediately â€” use a strong, unique one.\nStep 2: Enable 2FA if it wasnâ€™t already on.\nStep 3: Go to â€œLogin Activityâ€ or â€œActive Sessionsâ€ and log out all other devices. Then check if you reused that password anywhere else.",
+          action: "Go to your most important account right now and find its â€œActive Sessionsâ€ page. Knowing where it is before you need it saves panic later.",
         },
       },
     ],
   },
+
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // Phase 3 â€” Password Upgrade (5 min)
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   {
-    id: "privacy",
-    title: "Social Media & Privacy",
-    icon: EyeOff,
-    description:
-      "Control what you share and who can see it online.",
+    id: "passwords",
+    title: "Password Upgrade",
+    icon: KeyRound,
+    description: "One formula for passwords that are both uncrackable and memorable â€” apply it in 5 minutes.",
     items: [
       {
-        id: "pr1",
-        text: "My social media profiles are set to private or friends-only",
-        severity: "medium",
-        tip: {
-          title: "Public profiles fuel targeted attacks",
-          body: "Publicly visible information (workplace, location, birthday, phone) can be used for phishing, social engineering, or identity theft. Review your profile visibility.",
-          action: "Audit privacy settings on Facebook, Instagram, LinkedIn, and Twitter/X. Make personal details private.",
-        },
-      },
-      {
-        id: "pr2",
-        text: "I review app permissions regularly (camera, location, microphone)",
-        severity: "medium",
-        tip: {
-          title: "Apps often over-request permissions",
-          body: "Many apps request permissions they don't need (a flashlight app wanting your contacts, for example). Review and revoke unnecessary permissions.",
-          action: "iOS: Settings → Privacy & Security. Android: Settings → Apps → Permissions. Revoke any that seem excessive.",
-        },
-      },
-      {
-        id: "pr3",
-        text: "I limit the personal info I share in online forms and sign-ups",
-        severity: "low",
-        tip: {
-          title: "Data minimization reduces your risk",
-          body: "Every form you fill out adds to your data footprint. Only provide mandatory fields. Use an alias email or a disposable address for non-critical sign-ups.",
-          action: "Use services like SimpleLogin or AnonAddy for disposable email aliases to sign up for services.",
-        },
-      },
-      {
-        id: "pr4",
-        text: "I have searched for my personal info online and requested removal where possible",
-        severity: "low",
-        tip: {
-          title: "Data brokers collect and sell your info",
-          body: "People-search sites like Spokeo, BeenVerified, and WhitePages publish your address, phone number, and more. You can opt out, though it's time-consuming.",
-          action: "Use a service like DeleteMe or manually opt out at major data broker sites. Google yourself to see what's out there.",
-        },
-      },
-    ],
-  },
-  {
-    id: "backups",
-    title: "Data Backups",
-    icon: HardDrive,
-    description:
-      "Backups are your safety net against ransomware, hardware failure, and accidents.",
-    items: [
-      {
-        id: "b1",
-        text: "I regularly back up important data",
+        id: "p1",
+        text: "My passwords are long passphrases, not short words with numbers (e.g. River-Coffee-Sunset-92!)",
         severity: "critical",
         tip: {
-          title: "When, not if — hardware fails",
-          body: "Hard drives fail, phones get lost, ransomware encrypts files. Without backups, this data is gone permanently. Regular backups are non-negotiable.",
-          action: "Follow the 3-2-1 rule: 3 copies of data, on 2 different media types, with 1 offsite/cloud copy.",
+          title: "Length beats complexity every time",
+          body: "Hackersâ€™ tools try billions of combinations per second. â€œMaria123â€ is cracked in under a second. â€œRiver-Coffee-Sunset-92!â€ would take centuries â€” and itâ€™s easier to remember.\n\nThe formula: 3â€“4 unrelated words + a number + a symbol. Thatâ€™s it.",
+          action: "Think of 3 random words that form a mental image â€” like Blue-Mango-Stairs. Add a number and a symbol: Blue-Mango-Stairs-7! Thatâ€™s your new password formula.",
         },
       },
       {
-        id: "b2",
-        text: "I have at least one offline or off-site backup",
-        severity: "high",
+        id: "p2",
+        text: "I use a different password for every important account (email, banking, social media)",
+        severity: "critical",
         tip: {
-          title: "Ransomware targets connected backups",
-          body: "If your backup drive is always connected, ransomware can encrypt it too. An offline or cloud backup that isn't directly accessible from your PC is essential.",
-          action: "External drives kept disconnected, or cloud services like Backblaze, iCloud, or Google One, provide offsite protection.",
+          title: "One reused password = all accounts exposed",
+          body: "Websites get hacked constantly. When they do, attackers take those username/password pairs and automatically try them on Gmail, Facebook, GCash, and your bank. If you reuse passwords, one breach costs you everything.",
+          action: "Identify your 3 most important accounts. Do any share a password? If yes, change the weakest one today using the passphrase formula. Start there â€” you donâ€™t need to change everything at once.",
         },
       },
       {
-        id: "b3",
-        text: "I have tested that my backups can actually be restored",
-        severity: "high",
-        tip: {
-          title: "Untested backups often fail when needed",
-          body: "Many people discover their backup is corrupted or incomplete only when disaster strikes. Periodically test restoring a file or folder to confirm your backup works.",
-          action: "Schedule a quarterly restore test. Try recovering one or two important files from your backup.",
-        },
-      },
-      {
-        id: "b4",
-        text: "I back up my phone data regularly",
+        id: "p3",
+        text: "I use or plan to use a password manager such as Bitwarden (free)",
         severity: "medium",
         tip: {
-          title: "Phones hold irreplaceable data",
-          body: "Photos, contacts, messages, and app data on your phone can disappear if your device is lost, stolen, or broken. Cloud backups ensure continuity.",
-          action: "iOS: Enable iCloud Backup in Settings → [Your Name] → iCloud → iCloud Backup. Android: Settings → System → Backup.",
+          title: "A password manager solves the â€˜I canâ€™t rememberâ€™ problem completely",
+          body: "A password manager generates and stores a unique strong password for every site. You only memorise one master passphrase. Bitwarden is free, open-source, trusted, and works across all devices and browsers.",
+          action: "Download Bitwarden at bitwarden.com â€” itâ€™s free. Add your top 5 accounts. Your master password should be a passphrase (4 words + number + symbol). Done.",
         },
       },
-    ],
-  },
-  {
-    id: "browsing",
-    title: "Safe Browsing",
-    icon: Globe,
-    description:
-      "Stay protected while using the internet.",
-    items: [
       {
-        id: "br1",
-        text: "I use a modern, up-to-date browser (Chrome, Firefox, Edge, Safari)",
+        id: "p4",
+        text: "I have enabled 2FA on at least one important account today",
         severity: "high",
         tip: {
-          title: "Old browsers have known vulnerabilities",
-          body: "Outdated browsers like Internet Explorer lack modern security features and receive no security patches. Use a current, mainstream browser and keep it updated.",
-          action: "Download the latest version of Firefox, Chrome, Edge, or Safari and set it as your default.",
+          title: "2FA is your safety net for when passwords fail",
+          body: "Passwords can be guessed, phished, or stolen from breached databases. 2FA means a stolen password is useless alone â€” the attacker still needs your phone. Enable it on your email first: itâ€™s the account that unlocks all others.",
+          action: "Right now: go to your emailâ€™s Security Settings and enable 2-Step Verification. It takes under 2 minutes and is the single highest-impact security action you can take today.",
         },
       },
       {
-        id: "br2",
-        text: "I check for HTTPS on sites before entering sensitive info",
-        severity: "high",
-        tip: {
-          title: "HTTPS encrypts data in transit",
-          body: "HTTPS ensures the connection between your browser and the website is encrypted. On non-HTTPS sites, anyone on the same network can see what you submit.",
-          action: "Look for the lock icon in the browser address bar. Avoid entering passwords or payment info on HTTP sites.",
-        },
-      },
-      {
-        id: "br3",
-        text: "I use an ad/tracker blocker extension",
-        severity: "medium",
-        tip: {
-          title: "Ads can carry malware (malvertising)",
-          body: "Legitimate ad networks have served malicious ads that automatically install malware. Ad blockers also stop trackers that follow you across the web.",
-          action: "Install uBlock Origin (Chrome, Firefox, Edge) — it's free, lightweight, and highly effective.",
-        },
-      },
-      {
-        id: "br4",
-        text: "I avoid downloading software from unofficial sources",
-        severity: "high",
-        tip: {
-          title: "Unofficial software is a malware hotspot",
-          body: "Pirated software, cracked apps, and downloads from random websites frequently contain malware hidden alongside the software you wanted.",
-          action: "Only download software from the official developer website or your OS's official app store.",
-        },
-      },
-      {
-        id: "br5",
-        text: "I use a privacy-respecting search engine or browser",
+        id: "p5",
+        text: "I have mentally improved â€” or committed to improving â€” at least one of my current passwords",
         severity: "low",
         tip: {
-          title: "Your searches reveal a lot",
-          body: "Search engines build detailed profiles from your searches and browsing history. Privacy-focused alternatives don't track you.",
-          action: "Try DuckDuckGo, Brave Search, or Startpage as your default search engine.",
+          title: "Start with one. Thatâ€™s how the habit builds.",
+          body: "You donâ€™t have to change everything at once. Pick your most important account â€” probably your email. Apply the formula: [Word]-[Word]-[Word]-[Number][Symbol]. Write it somewhere safe while you memorise it over the next few days.",
+          action: "Pick one account right now. Open its password-change page. Apply the passphrase formula. Close this app only after youâ€™ve done it.",
         },
       },
     ],
