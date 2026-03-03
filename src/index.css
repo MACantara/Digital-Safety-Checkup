@@ -6,6 +6,7 @@
       Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
+    font-size: 16px;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -19,8 +20,8 @@
   }
 
   body {
-    background-color: #0f172a;
-    color: #cbd5e1;
+    background-color: #f8fafc;
+    color: #1e293b;
   }
 
   #root {
@@ -33,12 +34,12 @@
   }
 
   a {
-    color: #818cf8;
+    color: #4338ca;
     text-decoration: none;
   }
 
   a:hover {
-    color: #a5b4fc;
+    color: #3730a3;
   }
 }
 
@@ -86,25 +87,25 @@
 
   .btn-outline {
     background: transparent;
-    color: #94a3b8;
-    border-color: rgba(255, 255, 255, 0.15);
+    color: #334155;
+    border-color: #cbd5e1;
   }
 
   .btn-outline:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.25);
-    color: #e2e8f0;
+    background: #f1f5f9;
+    border-color: #94a3b8;
+    color: #1e293b;
   }
 
   .btn-ghost {
     background: transparent;
-    color: #64748b;
+    color: #475569;
     border-color: transparent;
   }
 
   .btn-ghost:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: #94a3b8;
+    background: #f1f5f9;
+    color: #1e293b;
   }
 
   /* Active sidebar tab indicator — pseudo-element can't be done with inline Tailwind */

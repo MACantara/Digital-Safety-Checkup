@@ -20,7 +20,7 @@ export default function Header({ completedPhases }: HeaderProps) {
   const currentPhaseId = phaseMatch ? Number(phaseMatch[1]) : null;
 
   return (
-    <header className="sticky top-0 z-[100] bg-slate-950/90 backdrop-blur-xl border-b border-white/[0.08] px-6">
+    <header className="sticky top-0 z-[100] bg-white/95 backdrop-blur-xl border-b border-slate-200 px-6 shadow-sm">
       <div className="max-w-[900px] mx-auto flex items-center justify-between h-[60px]">
         {/* Logo */}
         <button
@@ -28,8 +28,8 @@ export default function Header({ completedPhases }: HeaderProps) {
           onClick={() => navigate("/")}
           aria-label="Go to home"
         >
-          <Shield size={22} className="text-indigo-400 shrink-0" />
-          <span className="text-base font-bold text-slate-200 tracking-tight max-sm:hidden">
+          <Shield size={22} className="text-indigo-600 shrink-0" />
+          <span className="text-base font-bold text-slate-900 tracking-tight max-sm:hidden">
             Digital Safety Checkup
           </span>
         </button>
@@ -48,10 +48,10 @@ export default function Header({ completedPhases }: HeaderProps) {
                   className={[
                     "flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-[0.72rem] font-semibold transition-colors bg-transparent cursor-pointer font-[inherit]",
                     active
-                      ? "border-indigo-500/60 bg-indigo-500/15 text-indigo-300"
+                      ? "border-indigo-500 bg-indigo-50 text-indigo-700"
                       : done
-                      ? "border-green-500/30 bg-green-500/8 text-green-400"
-                      : "border-white/[0.07] bg-slate-800/50 text-slate-600 hover:text-slate-400 hover:border-white/[0.12]",
+                      ? "border-green-600/50 bg-green-50 text-green-700"
+                      : "border-slate-300 bg-slate-50 text-slate-600 hover:text-slate-800 hover:border-slate-400",
                   ].join(" ")}
                   title={phase.title}
                 >
@@ -67,10 +67,10 @@ export default function Header({ completedPhases }: HeaderProps) {
               className={[
                 "flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-[0.72rem] font-semibold transition-colors bg-transparent cursor-pointer font-[inherit]",
                 location.pathname === "/summary"
-                  ? "border-indigo-500/60 bg-indigo-500/15 text-indigo-300"
+                  ? "border-indigo-500 bg-indigo-50 text-indigo-700"
                   : completedPhases.size === totalPhases
-                  ? "border-green-500/30 bg-green-500/8 text-green-400"
-                  : "border-white/[0.07] bg-slate-800/50 text-slate-500 hover:text-slate-400",
+                  ? "border-green-600/50 bg-green-50 text-green-700"
+                  : "border-slate-300 bg-slate-50 text-slate-600 hover:text-slate-800",
               ].join(" ")}
               title="Summary"
             >
